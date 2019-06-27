@@ -1,0 +1,23 @@
+.bg-reg-color {
+  background-color: #7D8A97;
+  margin-bottom: -16px;
+}
+.reg-hd-bg {
+  background-color: #273647 ;
+}
+
+.btn-color{
+  background-color: #58BD9C;
+}
+
+.set-margin-btn {
+  margin: 70px 10px 70px 10px;
+}
+
+.set-margin{
+  margin: 85.5px 0px 188px 0px;
+}
+
+.btn-hover:hover {
+  box-shadow: 1px 6px 20px 2px rgba(88,189,156,0.44);
+}
