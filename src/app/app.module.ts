@@ -13,6 +13,9 @@ import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {FormsModule} from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
+import { ErrorComponent } from './error/error.component';
+import {DataService} from './services/data.service';
+import {RouteGuardService} from './services/route-guard.service';
 
 @NgModule({
   declarations: [
@@ -25,14 +28,15 @@ import { LogoutComponent } from './logout/logout.component';
     NavbarComponent,
     FooterComponent,
     DashboardComponent,
-    LogoutComponent
+    LogoutComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DataService, RouteGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
