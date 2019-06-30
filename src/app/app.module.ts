@@ -16,6 +16,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { ErrorComponent } from './error/error.component';
 import {DataService} from './services/data.service';
 import {RouteGuardService} from './services/route-guard.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {RouteGuardService} from './services/route-guard.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [DataService, RouteGuardService],
   bootstrap: [AppComponent]

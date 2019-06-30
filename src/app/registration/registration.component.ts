@@ -12,4 +12,8 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
+  saveUser() {
+    console.log('user saved');
+  }
+
 }

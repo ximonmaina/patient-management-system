@@ -8,25 +8,28 @@
             <h1 class="text-center  text-white">Login <i class="fas fa-lock"></i></h1>
           </div>
           <div class="card-body">
-            <form>
+            <div class="alert alert-warning" *ngIf="loginForm.dirty && loginForm.invalid">
+              Input cannot be empty!!
+            </div>
+            <form (ngSubmit)="!loginForm.invalid && handleLogin()" #loginForm="ngForm">
 
               <div class="form-group">
                 <label class="text-white " for="username">Username</label>
                 <input type="text" class="form-control form-control-lg" id="username" aria-describedby="usernameHelp" placeholder="Enter username" name="username"
-                [(ngModel)]="username">
+                [(ngModel)]="username" required>
                 <small id="usernameHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
               </div>
               <div class="form-group">
                 <label class="text-white" for="password">Password</label>
                 <input type="password" class="form-control form-control-lg"  name="password" id="password" placeholder="Password"
-                [(ngModel)]="password">
+                [(ngModel)]="password" required>
               </div>
               <div *ngIf="invalidLogin" class="alert alert-danger" role="alert">
                 <small class="text-danger" >{{errorMessage}}</small>
               </div>
 
               <br>
-              <button (click)="handleLogin()" type="submit" class="btn btn-hover btn-lg btn-block btn-color text-white  align-content-center">Submit</button>
+              <button  type="submit" class="btn btn-hover btn-lg btn-block btn-color text-white  align-content-center">Submit</button>
             </form>
           </div>
         </div>
