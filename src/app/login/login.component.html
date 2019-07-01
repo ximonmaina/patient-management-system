@@ -11,7 +11,7 @@
             <div class="alert alert-warning" *ngIf="loginForm.dirty && loginForm.invalid">
               Input cannot be empty!!
             </div>
-            <form (ngSubmit)="!loginForm.invalid && handleLogin()" #loginForm="ngForm">
+            <form (ngSubmit)="!loginForm.invalid && handleJWTAuthLogin()" #loginForm="ngForm">
 
               <div class="form-group">
                 <label class="text-white " for="username">Username</label>
