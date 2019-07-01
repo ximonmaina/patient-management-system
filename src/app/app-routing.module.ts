@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'registration-choice', component: RegistrationchoiceComponent, canActivate: [RouteGuardService]},
   {path: 'register-user', component: RegistrationComponent, canActivate: [RouteGuardService] },
   {path:  'registered-users', component: RegisteredusersComponent, canActivate: [RouteGuardService]},
-  {path:  'edit-user', component: ManageuserComponent, canActivate: [RouteGuardService]},
+  {path:  'edit-user/:id', component: ManageuserComponent, canActivate: [RouteGuardService]},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'navbar', component: NavbarComponent},
   {path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService]},

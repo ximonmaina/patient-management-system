@@ -1,7 +1,6 @@
-export class UserData {
-   // public id: number;
-
+export class UpdateUser {
   constructor(
+    public id: number,
     public userName: string,
     public password: string,
     public firstName: string,

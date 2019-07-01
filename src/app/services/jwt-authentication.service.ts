@@ -31,7 +31,7 @@ export class JwtAuthenticationService {
   }
 
   getAuthenticatedToken() {
-
+    return sessionStorage.getItem('token');
   }
   isUserLoggedIn() {
     const user =  sessionStorage.getItem('authenticatedUser');

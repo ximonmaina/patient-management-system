@@ -1,6 +1,6 @@
 .bg-reg-color {
   background-color: #7D8A97;
-  margin-bottom: -16px;
+  /*margin-bottom: -16px;*/
 }
 .reg-hd-bg {
   background-color: #273647 ;
@@ -8,6 +8,7 @@
 
 .btn-color{
   background-color: #58BD9C;
+  float: right;
 }
 
 .set-margin-btn {
@@ -15,7 +16,7 @@
 }
 
 .set-margin{
-  margin: 20px 0px 20px 0px;
+  margin: 20px 0px 25% 0px;
 }
 
 .btn-hover:hover {
@@ -24,4 +25,8 @@
 
 .card-body-bg {
   background-color: white;
+}
+
+body {
+  background-color: #7D8A97;
 }
