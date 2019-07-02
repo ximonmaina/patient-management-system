@@ -12,6 +12,11 @@ export class RegisteredusersComponent implements OnInit {
 
   users: GetUserData[];
   message: string;
+  show: boolean;
+  getRole = {
+    roles: 'ADMIN'
+  };
+
   constructor(private user: UserDataService,
               private route: Router) { }
 

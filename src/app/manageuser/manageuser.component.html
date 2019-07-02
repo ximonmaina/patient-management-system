@@ -4,50 +4,80 @@
       <div class="col-md-12">
         <div class="card reg-hd-bg set-margin">
           <div class="card-header reg-hd-bg ">
-            <h2 class="text-left  text-white">Edit User Account</h2>
+            <h2 class="text-left  text-white">Create User Account</h2>
           </div>
           <div class="card-body">
             <div class="container">
-              <form >
+              <!--               <div class="alert alert-warning" *ngIf="userForm.dirty && userForm.invalid">-->
+              <!--                 Enter valid values-->
+              <!--               </div>-->
+              <!--               <div class="alert alert-warning" *ngIf="userForm.dirty && firstName.invalid">-->
+              <!--                 Enter valid values-->
+              <!--               </div>-->
+              <form (ngSubmit)="saveUser(user)"  [formGroup]="user"  >
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label  class="text-white" for="firstName">First Name*</label>
-                      <input type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp" placeholder="Enter First Name" name="firstName">
+                      <input type="text" formControlName="firstName"  class="form-control" id="firstName" aria-describedby="firstNameHelp" placeholder="Enter First Name"  >
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('firstName').hasError('required') && user.get('firstName').touched">
+                      First Name required
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('firstName').hasError('minlength') && user.get('firstName').touched">
+                      Minimum of 2 characters
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label class="text-white" for="lastName">Last Name*</label>
-                      <input type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp" placeholder="Enter First Name" name="lastName">
+                      <input type="text"   class="form-control" id="lastName" aria-describedby="lastNameHelp" placeholder="Enter Last Name" formControlName="lastName">
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('lastName').hasError('required') && user.get('lastName').touched">
+                      Last Name required
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('lastName').hasError('minlength') && user.get('lastName').touched">
+                      Minimum of 2 characters
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="text-white" for="middlename">Middle Name*</label>
-                      <input type="text" class="form-control" id="middlename" aria-describedby="middlenameHelp" placeholder="Enter Middle Name" name="middlename">
+                      <label class="text-white" for="middleName">Middle Name*</label>
+                      <input type="text"  class="form-control" id="middleName" aria-describedby="middleNameHelp" placeholder="Enter Middle Name" formControlName="middleName">
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('middleName').hasError('required') && user.get('middleName').touched">
+                      Middle Name required
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('middleName').hasError('minlength') && user.get('middleName').touched">
+                      Minimum of 2 characters
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label  class="text-white" for="country">Country</label>
-                      <input type="text" class="form-control" id="country" aria-describedby="countryHelp" placeholder="Country" name="country">
+                      <input type="text" class="form-control" id="country" aria-describedby="countryHelp" placeholder="Country" formControlName="country">
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="text-white" for="emailaddress">Email Address*</label>
-                      <input type="text" class="form-control" id="emailaddress" aria-describedby="emailaddressHelp" placeholder="Enter Email Address e.g user@email.com" name="emailaddress">
+                      <label class="text-white" for="emailAddress">Email Address*</label>
+                      <input type="text"  class="form-control" id="emailAddress" aria-describedby="emailAddressHelp" placeholder="Enter Email Address e.g user@email.com" formControlName="emailAddress">
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('emailAddress').hasError('required') && user.get('emailAddress').touched">
+                      Email Address required
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('emailAddress').hasError('email') && user.get('emailAddress').touched">
+                      Email must be a valid email address
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label  class="text-white" for="poBoxAddress">P.O Box Address</label>
-                      <input type="text" class="form-control" id="poBoxAddress" aria-describedby="poBoxAddressHelp" placeholder="Enter P.O Box Address" name="poBoxAddress">
+                      <input type="text"  class="form-control" id="poBoxAddress" aria-describedby="poBoxAddressHelp" placeholder="Enter P.O Box Address" formControlName="poBoxAddress" >
                     </div>
                   </div>
                 </div>
@@ -56,13 +86,19 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label  class="text-white" for="phoneNumber">Tel. No.*</label>
-                      <input type="number" class="form-control" id="phoneNumber" aria-describedby="phoneNumberHelp" placeholder="Enter Telephone Number" name="phoneNumber">
+                      <input type="text"  class="form-control" id="phoneNumber" aria-describedby="phoneNumberHelp" placeholder="Enter Telephone Number" formControlName="phoneNumber" >
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('phoneNumber').hasError('required') && user.get('phoneNumber').touched">
+                      Email Address required
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label class="text-white" for="idNumber">ID Number*</label>
-                      <input type="number" class="form-control" id="idNumber" aria-describedby="idNumberHelp" placeholder="Enter National Identity Number" name="idNumber">
+                      <input type="number"  class="form-control" id="idNumber" aria-describedby="idNumberHelp" placeholder="Enter National Identity Number" formControlName="idNumber" >
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('idNumber').hasError('required') && user.get('idNumber').touched">
+                      ID required
                     </div>
                   </div>
                 </div>
@@ -71,45 +107,50 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label  class="text-white" for="county">County</label>
-                      <input type="text" class="form-control" id="county" aria-describedby="countyHelp" placeholder="Enter Username" name="county">
+                      <input type="text" class="form-control" id="county" aria-describedby="countyHelp" placeholder="Enter Username" formControlName="county">
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!(getSpecificUserData.roles === 'ADMIN')">
                       <label class="text-white" for="qualification">Qualification*</label>
-                      <select class="browser-default custom-select" id="qualification">
-                        <option selected>select user qualification</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="nurse">Nurse</option>
-                        <option value="lab_technician">Lab Technician</option>
-                        <option value="pharmacist">Pharmacist</option>
+                      <select  class="browser-default custom-select" id="qualification" formControlName="roles" >
+                        <option selected disabled>select user qualification</option>
+                        <option value="DOCTOR">Doctor</option>
+                        <option value="NURSE">Nurse</option>
+                        <option value="LAB_TECHNICIAN">Lab Technician</option>
+                        <option value="PHARMACIST">Pharmacist</option>
                       </select>
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('roles').hasError('required') && user.get('roles').touched">
+                      Qualification required
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label  class="text-white" for="username">UserName*</label>
-                      <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter Username" name="username">
-                      <small id="usernameHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+                      <label  class="text-white" for="userName">UserName*</label>
+                      <input type="text"  class="form-control" id="userName" aria-describedby="userNameHelp" placeholder="Enter Username" formControlName="userName">
+                      <small id="userNameHelp" class="form-text text-muted">We'll never share your userName with anyone else.</small>
+                    </div>
+                    <div class="error alert-warning" *ngIf="user.get('userName').hasError('required') && user.get('userName').touched">
+                      Username required
                     </div>
                   </div>
-<!--                  <div class="col-md-6">-->
-<!--                    <div class="form-group">-->
-<!--                      <label class="text-white" for="password">Password*</label>-->
-<!--                      <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" placeholder="Enter Password" name="password">-->
-<!--                    </div>-->
-<!--                  </div>-->
                 </div>
+
+                <div class="row">
+                  <br>
+                </div>
+
 
                 <div class="row">
                   <div class="col-md-2"></div>
                   <div class="col-md-4">
-                    <button type="submit" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+                    <button type="submit" [disabled]="user.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
                   </div>
                   <div class="col-md-4">
-                    <button type="submit" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+                    <button [routerLink]="['/registered-users']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
                   </div>
                   <div class="col-md-2"></div>
                 </div>

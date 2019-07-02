@@ -39,13 +39,12 @@ export class UserDataService {
     return this.http.post(`${API_URL}/register/adduser`, user, {headers});
   }
 
-  updateUser(id, user: UpdateUser) {
+  updateUser(user: UpdateUser) {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });
-    user.id = id;
 
-    return this.http.put<GetUserData>(`${API_URL}/register/updateuser`, user, {headers});
+    return this.http.patch<GetUserData>(`${API_URL}/register/updateuser`, user, {headers});
 
   }
 

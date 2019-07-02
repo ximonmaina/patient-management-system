@@ -11,7 +11,7 @@ import {JwtAuthenticationService} from '../services/jwt-authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  username = 'simon';
+  username = '';
 
   password = '';
 
