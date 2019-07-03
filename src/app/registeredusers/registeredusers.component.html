@@ -38,7 +38,7 @@
                         <td>{{user.idNumber}}</td>
                         <td>{{user.phoneNumber}}</td>
                         <td><button  (click)="updateUser(user.id)" class="btn btn-success">Update</button></td>
-                        <td><button *ngIf="!(user.roles === 'ADMIN')" (click)="deleteUser(user.id)" class="btn btn-warning">Delete</button></td>
+                        <td><button *ngIf="!(user.roles === 'ADMIN')" (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button></td>
                       </tr>
                   </tbody>
 <!--                  <tfoot>-->

@@ -11,6 +11,7 @@ import {RegisteredusersComponent} from './registeredusers/registeredusers.compon
 import {ManageuserComponent} from './manageuser/manageuser.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {RouteGuardService} from './services/route-guard.service';
+import {WelcomeComponent} from './welcome/welcome.component';
 
 const routes: Routes = [
   {path: '' , component: LoginComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path:  'edit-user/:id', component: ManageuserComponent, canActivate: [RouteGuardService]},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'navbar', component: NavbarComponent},
+  {path: 'welcome', component: WelcomeComponent, canActivate: [RouteGuardService]},
   {path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService]},
   {path: '**', component: ErrorComponent}
 ];

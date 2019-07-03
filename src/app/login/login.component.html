@@ -9,7 +9,7 @@
           </div>
           <div class="card-body">
             <div class="alert alert-warning" *ngIf="loginForm.dirty && loginForm.invalid">
-              Input cannot be empty!!
+              Password cannot be empty!!
             </div>
             <form (ngSubmit)="!loginForm.invalid && handleJWTAuthLogin()" #loginForm="ngForm">
 

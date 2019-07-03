@@ -5,6 +5,7 @@ import {API_URL} from '../../app.constants';
 import {JwtAuthenticationService, TOKEN} from '../jwt-authentication.service';
 import {UserData} from '../../domainobjects/user-data';
 import {UpdateUser} from '../../domainobjects/update.user';
+import {GetUserRole} from '../../domainobjects/get.user.role';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,13 @@ export class UserDataService {
     });
     console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
     return this.http.get<GetUserData[]>(`${API_URL}/register/getusers`, {headers});
+  }
+
+  getUserRole(username) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.get<GetUserRole>(`${API_URL}/register/getrole/${username}`, {headers});
   }
 
   getUser(id) {
@@ -53,6 +61,12 @@ export class UserDataService {
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });
     return this.http.delete(`${API_URL}/register/deleteuser/${id}`, {headers});
+  }
+
+  getAuthHeader() {
+    return new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
   }
 
 

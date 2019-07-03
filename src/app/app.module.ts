@@ -17,6 +17,7 @@ import { ErrorComponent } from './error/error.component';
 import {DataService} from './services/data.service';
 import {RouteGuardService} from './services/route-guard.service';
 import {HttpClientModule} from '@angular/common/http';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {HttpClientModule} from '@angular/common/http';
     FooterComponent,
     DashboardComponent,
     LogoutComponent,
-    ErrorComponent
+    ErrorComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

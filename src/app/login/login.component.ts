@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {DataService} from '../services/data.service';
 import {HardcodedAuthenticationService} from '../services/hardcoded-authentication.service';
 import {JwtAuthenticationService} from '../services/jwt-authentication.service';
+import {UserDataService} from '../services/data/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,10 @@ export class LoginComponent implements OnInit {
 
   password = '';
 
+  role = '';
+
+  show: boolean;
+
   errorMessage = 'Invalid Credentials';
 
   invalidLogin = false;
@@ -22,7 +27,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
               private  data: DataService,
               private hardcodedAuthenticationService: HardcodedAuthenticationService,
-              private jwtAuthentication: JwtAuthenticationService) { }
+              private jwtAuthentication: JwtAuthenticationService,
+              private userRole: UserDataService) { }
 
   ngOnInit() {
   }
@@ -42,13 +48,28 @@ export class LoginComponent implements OnInit {
   //  }
   // }
 
+  getUserRole(username) {
+
+    this.userRole.getUserRole(username).subscribe(
+        data => {
+          this.role = data['roles'];
+        if (this.role === 'ADMIN') {
+            this.router.navigate(['/registration-choice']);
+          }  else {
+            this.router.navigate(['/dashboard']);
+          }
+          // console.log('roles is', this.show);
+        }
+    );
+  }
+
   handleJWTAuthLogin() {
     this.jwtAuthentication.executeJWTAuthenticationService(this.username, this.password)
       .subscribe(
         data => {
           console.log(data);
           this.newUsername();
-          this.router.navigate(['/registration-choice']);
+          this.getUserRole(this.username);
           this.invalidLogin = false;
         },
         error => {
