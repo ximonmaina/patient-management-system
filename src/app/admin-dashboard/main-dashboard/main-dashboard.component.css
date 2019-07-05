@@ -8,6 +8,9 @@
 .list-hover:hover {
   background-color: #7D8A97;
 }
+.active-link {
+  background-color: #7D8A97;
+}
 
 .last-item {
   border-bottom: solid white thin;

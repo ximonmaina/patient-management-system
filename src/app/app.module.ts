@@ -10,14 +10,14 @@ import { RegisteredusersComponent } from './registeredusers/registeredusers.comp
 import { ManageuserComponent } from './manageuser/manageuser.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { ErrorComponent } from './error/error.component';
 import {DataService} from './services/data.service';
 import {RouteGuardService} from './services/route-guard.service';
 import {HttpClientModule} from '@angular/common/http';
-import { WelcomeComponent } from './welcome/welcome.component';
+import {AdminDashboardModule} from './admin-dashboard/admin-dashboard.module';
 
 @NgModule({
   declarations: [
@@ -29,17 +29,17 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ManageuserComponent,
     NavbarComponent,
     FooterComponent,
-    DashboardComponent,
     LogoutComponent,
-    ErrorComponent,
-    WelcomeComponent
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
+    AdminDashboardModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   providers: [DataService, RouteGuardService],
   bootstrap: [AppComponent]

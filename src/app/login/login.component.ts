@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         if (this.role === 'ADMIN') {
             this.router.navigate(['/registration-choice']);
           }  else {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/main-dashboard/welcome']);
           }
           // console.log('roles is', this.show);
         }
