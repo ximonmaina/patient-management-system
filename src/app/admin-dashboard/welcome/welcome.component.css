@@ -1,0 +1,23 @@
+.content-bg {
+  background-color: white;
+  text-align: center;
+
+
+}
+.sec-bg {
+  color: white;
+}
+.max-width {
+  max-width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: auto;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
