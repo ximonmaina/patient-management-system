@@ -1,0 +1,18 @@
+export class PatientData {
+  constructor (
+  public id: number,
+  public patientFirstName: string,
+  public patientLastName: string,
+  public patientMiddleName: string,
+  public patientIdentityNumber: number,
+  public patientDateOfBirth: Date,
+  public patientAge: number,
+  public patientGender: string,
+  public patientCountry: string,
+  public patientCounty: string,
+  public patientPhoneNumber: number,
+  public patientAddress: string,
+  public patientEmailAddress: string,
+
+) {}
+}

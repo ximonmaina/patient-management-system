@@ -6,6 +6,7 @@ import {JwtAuthenticationService, TOKEN} from '../jwt-authentication.service';
 import {UserData} from '../../domainobjects/user-data';
 import {UpdateUser} from '../../domainobjects/update.user';
 import {GetUserRole} from '../../domainobjects/get.user.role';
+import {PatientData} from '../../domainobjects/patient.data';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,13 @@ export class UserDataService {
   constructor(private http: HttpClient,
              private jwtAuthenticationService: JwtAuthenticationService) { }
 
+   getPatients() {
+     const headers = new HttpHeaders({
+       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+     });
+     // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+     return this.http.get<PatientData[]>(`${API_URL}/patient/getpatients`, {headers});
+   }
 
   retrieveUsers() {
     const headers = new HttpHeaders({
