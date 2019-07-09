@@ -89,13 +89,13 @@
                        <input type="text"  class="form-control" id="phoneNumber" aria-describedby="phoneNumberHelp" placeholder="Enter Telephone Number" formControlName="phoneNumber" >
                      </div>
                      <div class="error alert-warning" *ngIf="user.get('phoneNumber').hasError('required') && user.get('phoneNumber').touched">
-                       Email Address required
+                       Phone Number required
                      </div>
                    </div>
                    <div class="col-md-6">
                      <div class="form-group">
                        <label class="text-white" for="idNumber">ID Number*</label>
-                       <input type="number"  class="form-control" id="idNumber" aria-describedby="idNumberHelp" placeholder="Enter National Identity Number" formControlName="idNumber" >
+                       <input type="number"  class="form-control" id="idNumber" aria-describedby="idNumberHelp" placeholder="Enter National Identity Number" formControlName="idNumber" min="0" max="99999999">
                      </div>
                      <div class="error alert-warning" *ngIf="user.get('idNumber').hasError('required') && user.get('idNumber').touched">
                        ID required

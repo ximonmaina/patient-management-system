@@ -24,6 +24,13 @@ export class UserDataService {
      return this.http.get<PatientData[]>(`${API_URL}/patient/getpatients`, {headers});
    }
 
+   addPatient(patient: PatientData) {
+     const headers = new HttpHeaders({
+       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+     });
+     return this.http.post(`${API_URL}/patient/addpatient`, patient, {headers})
+   }
+
   retrieveUsers() {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()

@@ -18,6 +18,7 @@ import {DataService} from './services/data.service';
 import {RouteGuardService} from './services/route-guard.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AdminDashboardModule} from './admin-dashboard/admin-dashboard.module';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import {AdminDashboardModule} from './admin-dashboard/admin-dashboard.module';
     ReactiveFormsModule,
 
   ],
-  providers: [DataService, RouteGuardService],
+  providers: [DataService, RouteGuardService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

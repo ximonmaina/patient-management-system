@@ -2,16 +2,17 @@
   <div class="row">
     <div class="col-md-12 mg bg-light">
       <h3 class="txt-position" style="color: #7F7F7F">Patients</h3>
-      <button class="btn  btn-success fl-bg"><i class="fas fa-plus"></i> Add Patient</button>
+      <button class="btn  btn-success fl-bg"><i class="fas fa-plus"></i> <a [routerLink]="['/main-dashboard/add-patient']" style="text-decoration: none; color: white;"> Add Patient</a></button>
     </div>
   </div>
-  <div class="row">
+  <div class="row row-margin">
     <div class="col-md-12">
       <table id="dtMaterialDesignExample" class="table table-responsive table-margin table-striped" cellspacing="0" width="100%">
         <thead class="thead-light">
         <tr>
           <th class="th-sm">First Name</th>
           <th class="th-sm">Last Name</th>
+          <th class="th-sm">Middle Name</th>
           <th class="th-sm">Identity Number</th>
           <th class="th-sm">DoB</th>
           <th class="th-sm">Age</th>
@@ -20,7 +21,6 @@
           <th class="th-sm">County</th>
           <th class="th-sm">Tel. Number</th>
           <th class="th-sm">Address</th>
-          <th class="th-sm">Email Address</th>
           <th class="th-sm"></th>
         </tr>
         </thead>
@@ -28,6 +28,7 @@
         <tr *ngFor=" let patient of patientList">
             <td>{{patient.patientFirstName}}</td>
             <td>{{patient.patientLastName}}</td>
+             <td>{{patient.patientMiddleName}}</td>
             <td>{{patient.patientIdentityNumber}}</td>
             <td>{{patient.patientDateOfBirth | date :'yyyy-MM-dd'}}</td>
             <td>{{patient.patientAge}}</td>
@@ -36,7 +37,6 @@
             <td>{{patient.patientCounty}}</td>
             <td>{{patient.patientPhoneNumber}}</td>
             <td>{{patient.patientAddress}}</td>
-            <td>{{patient.patientEmailAddress}}</td>
             <td><button  (click)="addPatientTriage(patient.id)" class="btn btn-success">Add Triage</button></td>
         </tr>
         </tbody>

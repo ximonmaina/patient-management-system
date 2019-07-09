@@ -5,7 +5,7 @@ export class PatientData {
   public patientLastName: string,
   public patientMiddleName: string,
   public patientIdentityNumber: number,
-  public patientDateOfBirth: Date,
+  public patientDateOfBirth: string,
   public patientAge: number,
   public patientGender: string,
   public patientCountry: string,
