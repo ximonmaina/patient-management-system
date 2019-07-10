@@ -37,10 +37,12 @@
             <td>{{patient.patientCounty}}</td>
             <td>{{patient.patientPhoneNumber}}</td>
             <td>{{patient.patientAddress}}</td>
-            <td><button  (click)="addPatientTriage(patient.id)" class="btn btn-success">Add Triage</button></td>
+            <td><button (click)="getPatientId(patient.id)" type="button" class="btn btn-success">Add Triage</button></td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+
 </div>

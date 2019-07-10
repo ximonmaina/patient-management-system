@@ -4,6 +4,8 @@ import {DataService} from '../services/data.service';
 import {HardcodedAuthenticationService} from '../services/hardcoded-authentication.service';
 import {JwtAuthenticationService} from '../services/jwt-authentication.service';
 import {UserDataService} from '../services/data/user-data.service';
+import {UsernameService} from '../services/username.service';
+
 
 @Component({
   selector: 'app-login',
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit {
               private  data: DataService,
               private hardcodedAuthenticationService: HardcodedAuthenticationService,
               private jwtAuthentication: JwtAuthenticationService,
-              private userRole: UserDataService) { }
+              private userRole: UserDataService,
+              private getUsername: UsernameService) { }
 
   ngOnInit() {
   }
@@ -69,6 +72,7 @@ export class LoginComponent implements OnInit {
         data => {
           console.log(data);
           this.newUsername();
+          this.getUsername.setUserName(this.username);
           this.getUserRole(this.username);
           this.invalidLogin = false;
         },

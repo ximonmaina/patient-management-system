@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {API_URL} from '../app.constants';
 import {map} from 'rxjs/operators';
+import {USER_NAME} from './username.service';
 
 export const TOKEN = 'token';
 export const AUTHENTICATED_USER =  'authenticatedUser';
@@ -40,5 +41,7 @@ export class JwtAuthenticationService {
 
   logout() {
     sessionStorage.removeItem('authenticatedUser');
+    localStorage.removeItem(USER_NAME);
+    console.log(localStorage.getItem(USER_NAME));
   }
 }

@@ -1,0 +1,89 @@
+<div class="container-fluid" style="background-color: white; margin-top: 10px">
+
+  <div class="row bg-light">
+    <h4 class="text-color" style="padding: 10px;">Add Patient Triage Information</h4>
+  </div>
+  <form (ngSubmit)="saveTriage(triage)" [formGroup]="triage" style="margin-bottom: 100px;">
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-6">
+        <div class="form-row">
+          <label class="text-dark col">Patient Name</label>
+          <input type="text" placeholder="{{patientName}}" disabled class="col text-dark">
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-12">
+        <div class="form-row">
+          <label for="patientWeight" class="text-dark">Weight (in Kg)*</label>
+          <input type="number" formControlName="patientWeight" class="form-control" min="0" id="patientWeight" placeholder="Enter Patient Weight e.g. 45">
+        </div>
+        <div class="error alert-warning" *ngIf="triage.get('patientWeight').hasError('required') && triage.get('patientWeight').touched">
+          Patient Weight should be recorded!
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-12">
+        <div class="form-row">
+          <label for="patientHeight" class="text-dark">Height (in CM)*</label>
+          <input type="number" formControlName="patientHeight" class="form-control" min="0" id="patientHeight" placeholder="Enter Patient Height e.g. 145 ">
+        </div>
+        <div class="error alert-warning" *ngIf="triage.get('patientHeight').hasError('required') && triage.get('patientHeight').touched">
+          Patient Height should be recorded!
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-12">
+        <div class="form-row">
+          <label for="patientTemperature" class="text-dark">Temperature (in <sup>0</sup>C)*</label>
+          <input type="number" formControlName="patientTemperature" class="form-control" min="0" id="patientTemperature" placeholder="Enter Patient Temparature e.g. 27.6">
+        </div>
+        <div class="error alert-warning" *ngIf="triage.get('patientTemperature').hasError('required') && triage.get('patientTemperature').touched">
+          Patient Temperature should be recorded!
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-12">
+        <div class="form-row">
+          <label for="patientBloodPressure" class="text-dark">Blood Pressure (in mm Hg)*</label>
+          <input type="text" formControlName="patientBloodPressure" class="form-control"  id="patientBloodPressure" placeholder="Enter Patient Blood Pressure e.g. 120/80">
+        </div>
+        <div class="error alert-warning" *ngIf="triage.get('patientBloodPressure').hasError('required') && triage.get('patientBloodPressure').touched">
+          Patient Blood Pressure should be recorded!
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-12">
+        <div class="form-row">
+          <label  class="text-dark">Nurse</label>
+          <input type="text" formControlName="staffName" class="form-control" placeholder="{{clinicStaffName}}" >
+        </div>
+      </div>
+    </div>
+
+    <div class="row button-margin" style="padding-top: 10px;">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <button type="submit" [disabled]="triage.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+      </div>
+      <div class="col-md-4">
+        <button [routerLink]="['/main-dashboard/patient-list']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </form>
+
+  <div class="row"></div>
+</div>
+
+
+
+

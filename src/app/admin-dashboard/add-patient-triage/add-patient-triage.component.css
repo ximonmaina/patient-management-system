@@ -1,0 +1,14 @@
+.text-color {
+  color: #7f7f7f;
+}
+.button-margin {
+  margin-top: 30px;
+}
+
+.btn-color{
+  background-color: #58BD9C;
+}
+
+.btn-hover:hover {
+  box-shadow: 1px 6px 20px 2px rgba(88,189,156,0.44);
+}
