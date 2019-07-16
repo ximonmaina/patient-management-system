@@ -19,6 +19,7 @@ import {RouteGuardService} from './services/route-guard.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AdminDashboardModule} from './admin-dashboard/admin-dashboard.module';
 import {DatePipe} from '@angular/common';
+import {PatientTreatmentModule} from './patient-treatment/patient-treatment.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {DatePipe} from '@angular/common';
   ],
   imports: [
     BrowserModule,
+    PatientTreatmentModule,
     AdminDashboardModule,
     AppRoutingModule,
     FormsModule,

@@ -8,6 +8,7 @@ import {UpdateUser} from '../../domainobjects/update.user';
 import {GetUserRole} from '../../domainobjects/get.user.role';
 import {PatientData} from '../../domainobjects/patient.data';
 import {TriageData} from '../../domainobjects/triage.data.';
+import {PatientTriageData} from '../../domainobjects/patient-triage.data';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,13 @@ export class UserDataService {
        Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
      });
      return this.http.get<PatientData>(`${API_URL}/patient/getpatient/${id}`, {headers});
+   }
+
+   getPatientTriageData(id: number) {
+     const headers = new HttpHeaders({
+       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+     });
+     return this.http.get<PatientTriageData[]>(`${API_URL}/patient/getpatient/${id}`, {headers});
    }
 
   retrieveUsers() {

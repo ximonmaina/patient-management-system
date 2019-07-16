@@ -1,0 +1,31 @@
+<div class="container-fluid bg-margin">
+  <div class="row bg-light bg-color">
+    <div class="col-md-12 ">
+<!--      <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--          <ul class="navbar-nav">-->
+<!--            <li class="nav-item active">-->
+<!--              <a class="nav-link">Diagnosis <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" >Lab Test Request</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" >Lab Test Result</a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </nav>-->
+      <div class="topnav">
+        <a class="active" [routerLink]="['/main-dashboard/main-treatment/treatment']" ><h6>Medication</h6></a>
+        <a ><h6>Lab Test Request</h6></a>
+        <a ><h6>Lab Test Results</h6></a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

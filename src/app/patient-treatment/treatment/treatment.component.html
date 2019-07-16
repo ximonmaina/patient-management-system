@@ -1,0 +1,148 @@
+<div class="container-fluid pt-bg">
+  <form (ngSubmit)="saveTreatment(treatment)" [formGroup]="treatment"  class="margin-bottom">
+  <div class="row">
+    <div class="col-md-12 bg-light">
+      <span class="txt-position"><h3 style="color: #7f7f7f">Adding Diagnosis</h3></span>
+      <button type="submit" class="btn btn-success fl-bg" style="text-decoration: none; color: white;"
+              data-toggle="modal" data-target="#exampleModalScrollable" (click)="getPatientId(treatment)">Check Patient Triage</button>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label  class="text-color">Patient*</label>
+          <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select patient" virtualScroll="true"
+                      formControlName="patient" (add)="onAdd(treatment)" >
+            <ng-option *ngFor="let patient of patients" [value]="patient.id"  >
+              {{patient.patientMiddleName}} {{patient.patientFirstName}}  {{patient.patientLastName}}
+            </ng-option>
+          </ng-select>
+    </div>
+        <div class="error alert-warning" *ngIf="treatment.get('patient').hasError('required') && treatment.get('patient').touched">
+          Patient Name should be recorded!
+        </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="disease" class="text-color">Disease*</label>
+      <input type="text" class="form-control" formControlName="disease" id="disease" placeholder="Record disease here">
+    </div>
+    <div class="error alert-warning" *ngIf="treatment.get('disease').hasError('required') && treatment.get('disease').touched">
+      Patient disease details should be recorded!
+    </div>
+    <div class="error alert-warning" *ngIf="treatment.get('disease').hasError('minlength') && treatment.get('disease').touched">
+      Minimum of 5 characters
+    </div>
+  </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label  class="text-color">Case Notes*</label>
+<!--          <textarea class = "form-control" rows = "3" placeholder = "Patient case notes" id="caseNotes"-->
+<!--          ></textarea>-->
+          <ck-editor formControlName="caseNotes" name="editor1" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+        </div>
+        <div class="error alert-warning" *ngIf="treatment.get('caseNotes').hasError('required') && treatment.get('caseNotes').touched">
+          Please record patient records
+        </div>
+        <div class="error alert-warning" *ngIf="treatment.get('caseNotes').hasError('minlength') && treatment.get('caseNotes').touched">
+          Minimum of 5 characters
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="drugPrescription" class="text-color">Drugs Prescription*</label>
+          <input type="text" class="form-control" formControlName="drugPrescription" id="drugPrescription"
+                 placeholder="Enter patient drug prescription">
+        </div>
+        <div class="error alert-warning" *ngIf="treatment.get('drugPrescription').hasError('required') && treatment.get('drugPrescription').touched">
+          Patient drug grescription details should be recorded!
+        </div>
+        <div class="error alert-warning" *ngIf="treatment.get('drugPrescription').hasError('minlength') && treatment.get('drugPrescription').touched">
+          Minimum of 5 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="staffName" class="text-color">Doctor</label>
+          <input type="text" class="form-control"  id="staffName" placeholder="{{doctorName}}">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label  class="text-color">Diagnosis Date</label>
+          <!--          <input type="date" formControlName="dateOfDiagnosis | date: 'fullDate' " class="form-control" id="dateOfDiagnosis">-->
+          <div>
+            <h6> <span>{{diagnosisDate | date : 'fullDate'}}</span></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--    <div class="row">-->
+<!--      <div class="col-md-2"></div>-->
+<!--      <div class="col-md-4"><button type="submit" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button></div>-->
+<!--      <div class="col-md-4"><button [routerLink]="['/main-dashboard/main-treatment/treatment']">cancel</button></div>-->
+<!--      <div class="col-md-2"></div>-->
+<!--    </div>-->
+
+    <div class="row button-margin" style="padding-top: 10px;">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <button  *ngIf="modalState || treatment.valid" type="submit" [disabled]="treatment.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+      </div>
+      <div class="col-md-4">
+        <button  [routerLink]="['/main-dashboard/welcome']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </form>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Triage Information for {{patientName}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <table id="dtMaterialDesignExample" class="table table-responsive-lg  table-margin table-striped" cellspacing="0" width="100%">
+            <thead class="thead-light">
+            <tr>
+              <th class="th-sm">Height (in CM)</th>
+              <th class="th-sm">Weight (in Kg)</th>
+              <th class="th-sm">Temperature (in <sup>0</sup>C)</th>
+              <th class="th-sm">Blood Pressure (in mm Hg)</th>
+              <th class="th-sm">Nurse</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let patientData of getData">
+              <td>{{patientData.patientHeight}}</td>
+              <td>{{patientData.patientWeight}}</td>
+              <td>{{patientData.patientTemperature}}</td>
+              <td>{{patientData.patientBloodPressure}}</td>
+              <td>{{patientData.staffName}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="turnOn()">Close</button>
+<!--          <button type="button" class="btn btn-primary">Save changes</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
