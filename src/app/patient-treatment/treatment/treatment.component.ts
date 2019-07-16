@@ -30,6 +30,7 @@ export class TreatmentComponent implements OnInit, OnDestroy {
   events: Event[] = [];
   modalState = false;
   patientName: string;
+  patientId = 0;
 
   constructor(private saveTreatmentData: UserDataService,
               private getPatients: UserDataService,
@@ -124,6 +125,8 @@ export class TreatmentComponent implements OnInit, OnDestroy {
   getPatientId({value, valid}: {value: TreatmentData, valid: boolean}) {
     this.treatmentData = value;
     // console.log(this.treatmentData.patient);
+    this.patientId = this.treatmentData.patient;
+    console.log(this.patientId);
 
 
     this.getPatients.getPatientTriageData(this.treatmentData.patient).subscribe(
@@ -132,6 +135,7 @@ export class TreatmentComponent implements OnInit, OnDestroy {
         this.getData = this.patientTriageData['PatientTriage'];
         console.log(this.getData);
         this.patientName = this.patientTriageData['patientFirstName'] + ' ' + this.patientTriageData['patientLastName'];
+
 
       },
       error => {

@@ -10,11 +10,12 @@ import {MatFormFieldModule, MatSelectModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { CKEditorModule } from 'ngx-ckeditor';
+import { LabTestRequestComponent } from './lab-test-request/lab-test-request.component';
 
 
 
 @NgModule({
-  declarations: [MainTreatmentComponent, TreatmentComponent],
+  declarations: [MainTreatmentComponent, TreatmentComponent, LabTestRequestComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
