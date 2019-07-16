@@ -62,7 +62,7 @@
                  placeholder="Enter patient drug prescription">
         </div>
         <div class="error alert-warning" *ngIf="treatment.get('drugPrescription').hasError('required') && treatment.get('drugPrescription').touched">
-          Patient drug grescription details should be recorded!
+          Patient drug drescription details should be recorded!
         </div>
         <div class="error alert-warning" *ngIf="treatment.get('drugPrescription').hasError('minlength') && treatment.get('drugPrescription').touched">
           Minimum of 5 characters

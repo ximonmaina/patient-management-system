@@ -9,6 +9,7 @@ import {GetUserRole} from '../../domainobjects/get.user.role';
 import {PatientData} from '../../domainobjects/patient.data';
 import {TriageData} from '../../domainobjects/triage.data.';
 import {PatientTriageData} from '../../domainobjects/patient-triage.data';
+import {LabRequestData} from '../../domainobjects/lab-request.data';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,27 @@ export class UserDataService {
   constructor(private http: HttpClient,
              private jwtAuthenticationService: JwtAuthenticationService) { }
 
+  deleteLabRequest(id) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.delete(`${API_URL}/labrequest/deleteLabRequest/${id}`, {headers});
+  }
+
+  addLabReqData(labRequest: LabRequestData) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.post(`${API_URL}/labrequest/addLabTestReq`, labRequest, {headers})
+  }
+
+  getLabData() {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<LabRequestData[]>(`${API_URL}/labrequest/getAllLabTestReq`, {headers});
+  }
 
    addPatientTriage(triage: TriageData) {
      const headers = new HttpHeaders({
