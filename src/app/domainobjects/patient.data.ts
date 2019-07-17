@@ -1,3 +1,5 @@
+import {LabResultTwoData} from './lab-result-two.data';
+
 export class PatientData {
   constructor (
   public id: number,
@@ -13,6 +15,6 @@ export class PatientData {
   public patientPhoneNumber: number,
   public patientAddress: string,
   public patientEmailAddress: string,
-
+  public labData: LabResultTwoData[]
 ) {}
 }

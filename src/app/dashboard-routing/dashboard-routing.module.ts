@@ -9,6 +9,7 @@ import {AddPatientTriageComponent} from '../admin-dashboard/add-patient-triage/a
 import {MainTreatmentComponent} from '../patient-treatment/main-treatment/main-treatment.component';
 import {TreatmentComponent} from '../patient-treatment/treatment/treatment.component';
 import {LabTestRequestComponent} from '../patient-treatment/lab-test-request/lab-test-request.component';
+import {LabTestResultComponent} from '../patient-treatment/lab-test-result/lab-test-result.component';
 
 const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
@@ -20,7 +21,8 @@ const routes: Routes = [
     {path: 'main-treatment', component: MainTreatmentComponent, canActivate: [RouteGuardService],
       children: [
         {path: 'treatment', component: TreatmentComponent, canActivate: [RouteGuardService]},
-        {path: 'lab-request', component: LabTestRequestComponent, canActivate: [RouteGuardService]}
+        {path: 'lab-request', component: LabTestRequestComponent, canActivate: [RouteGuardService]},
+        {path: 'lab-req-results', component: LabTestResultComponent, canActivate: [RouteGuardService]}
       ]
     }
   ]}

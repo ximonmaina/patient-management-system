@@ -11,11 +11,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { LabTestRequestComponent } from './lab-test-request/lab-test-request.component';
+import { LabTestResultComponent } from './lab-test-result/lab-test-result.component';
 
 
 
 @NgModule({
-  declarations: [MainTreatmentComponent, TreatmentComponent, LabTestRequestComponent],
+  declarations: [MainTreatmentComponent, TreatmentComponent, LabTestRequestComponent, LabTestResultComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,

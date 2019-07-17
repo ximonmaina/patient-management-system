@@ -10,6 +10,7 @@ import {PatientData} from '../../domainobjects/patient.data';
 import {TriageData} from '../../domainobjects/triage.data.';
 import {PatientTriageData} from '../../domainobjects/patient-triage.data';
 import {LabRequestData} from '../../domainobjects/lab-request.data';
+import {LabResultData} from '../../domainobjects/lab-result.data';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,21 @@ export class UserDataService {
   constructor(private http: HttpClient,
              private jwtAuthenticationService: JwtAuthenticationService) { }
 
+  getPatients() {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<PatientData[]>(`${API_URL}/patient/getpatients`, {headers});
+  }
+
+  getLabResultsData() {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<LabResultData[]>(`${API_URL}/laboratory/getAllLabData`, {headers});
+  }
   deleteLabRequest(id) {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
@@ -48,13 +64,7 @@ export class UserDataService {
      return this.http.post(`${API_URL}/patienttriage/addPatientTriage`, triage, {headers});
    }
 
-   getPatients() {
-     const headers = new HttpHeaders({
-       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
-     });
-     // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
-     return this.http.get<PatientData[]>(`${API_URL}/patient/getpatients`, {headers});
-   }
+
 
    addPatient(patient: PatientData) {
      const headers = new HttpHeaders({

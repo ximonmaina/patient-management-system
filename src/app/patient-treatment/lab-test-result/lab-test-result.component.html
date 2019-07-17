@@ -1,0 +1,63 @@
+<div class="container-fluid pt-bg">
+   <div class="row">
+     <div class="col-md-12 bg-light">
+       <div  class="txt-position">
+         <h3 style="color: #7F7F7F">Lab Test Results</h3>
+       </div>
+     </div>
+   </div>
+
+  <form   (ngSubmit)="labResults(labResult)" [formGroup]="labResult" class="margin-bottom" >
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-md-2">
+        <span class="text-color">Select patient to view results</span>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <!--             <label  class="text-color">Patient*</label>-->
+          <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select patient" virtualScroll="true"
+                     formControlName="patient" >
+            <ng-option *ngFor="let patient of patients" [value]="patient.id"  >
+              {{patient.patientMiddleName}} {{patient.patientFirstName}}  {{patient.patientLastName}}
+            </ng-option>
+          </ng-select>
+        </div>
+        <div class="error alert-warning" *ngIf="labResult.get('patient').hasError('required') && labResult.get('patient').touched">
+          Please select patient name!
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button  type="submit" [disabled]="labResult.invalid" class="btn btn-color text-white btn-hover">Search Patient Test Results</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </form>
+
+  <div class="row "style="margin-bottom: 300px;" >
+    <div class="col-md-12 text-lg-center">
+      <table id="dtMaterialDesignExample" class="table  table-responsive table-striped" cellspacing="0" width="100%">
+        <thead class="thead-light">
+        <tr>
+          <th class="th-sm">Patient Name</th>
+          <th class="th-sm">Test Name</th>
+          <th class="th-sm">Test Result</th>
+          <th class="th-sm">Date</th>
+          <th class="th-sm">Lab Technician</th>
+          <th class="th-sm">Doctor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let labData of s">
+          <td style ="word-break:break-all;">{{labData.patientName}}</td>
+          <td style ="word-break:break-all;">{{labData.testName}}</td>
+          <td style ="word-break:break-all;">{{labData.testResult}}</td>
+          <td style ="word-break:break-all;">{{labData.testResultDate | date: 'fullDate'}}</td>
+          <td style ="word-break:break-all;">{{labData.staffName}}</td>
+          <td style ="word-break:break-all;">{{labData.nameOfDoctor}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

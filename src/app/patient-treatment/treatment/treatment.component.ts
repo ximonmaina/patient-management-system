@@ -137,6 +137,7 @@ export class TreatmentComponent implements OnInit, OnDestroy {
         this.patientName = this.patientTriageData['patientFirstName'] + ' ' + this.patientTriageData['patientLastName'];
 
 
+
       },
       error => {
         console.log(error);
