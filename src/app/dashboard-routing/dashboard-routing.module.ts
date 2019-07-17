@@ -10,6 +10,7 @@ import {MainTreatmentComponent} from '../patient-treatment/main-treatment/main-t
 import {TreatmentComponent} from '../patient-treatment/treatment/treatment.component';
 import {LabTestRequestComponent} from '../patient-treatment/lab-test-request/lab-test-request.component';
 import {LabTestResultComponent} from '../patient-treatment/lab-test-result/lab-test-result.component';
+import {LaboratoryRequestsComponent} from '../laboratory/laboratory-requests/laboratory-requests.component';
 
 const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
@@ -24,7 +25,8 @@ const routes: Routes = [
         {path: 'lab-request', component: LabTestRequestComponent, canActivate: [RouteGuardService]},
         {path: 'lab-req-results', component: LabTestResultComponent, canActivate: [RouteGuardService]}
       ]
-    }
+    },
+    {path: 'laboratory-requests', component: LaboratoryRequestsComponent, canActivate: [RouteGuardService]}
   ]}
 ];
 

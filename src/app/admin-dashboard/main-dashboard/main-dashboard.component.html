@@ -4,9 +4,9 @@
   <div class=" border-right side-bg" id="sidebar-wrapper">
     <div [routerLinkActive]="['active-link']" class="sidebar-heading list-hover last-item"><span ><a style="text-decoration: none"   [routerLink]="['/main-dashboard/welcome']" class="text-white ">Dashboard</a></span></div>
     <div class="list-group list-group-flush last-item">
-      <a [routerLinkActive]="['active-link']"  [routerLink]="['/main-dashboard/patient-list']" class="list-group-item list-group-item-action dashboard-bd list-hover text-white side-bg"><i class="fas fa-procedures"></i> Patients</a>
+      <a [routerLinkActive]="['active-link']"  [routerLink]="['/main-dashboard/patient-list']" [routerLinkActiveOptions]="{match: ['/main-dashboard/patient-list', '/main-dashboard/add-patient', '/main-dashboard/add-triage']}" class="list-group-item list-group-item-action dashboard-bd list-hover text-white side-bg"><i class="fas fa-procedures"></i> Patients</a>
       <a [routerLinkActive]="['active-link']" [routerLink]="['/main-dashboard/main-treatment/treatment']" class="list-group-item list-group-item-action dashboard-bd list-hover text-white side-bg"><i class="fas fa-stethoscope"></i> Medication & Diagnosis</a>
-      <a [routerLinkActive]="['active-link']"  class="list-group-item list-group-item-action dashboard-bd list-hover text-white side-bg"><i class="fas fa-vials"></i> Laboratory</a>
+      <a [routerLinkActive]="['active-link']" [routerLink]="['/main-dashboard/laboratory-requests']" class="list-group-item list-group-item-action dashboard-bd list-hover text-white side-bg"><i class="fas fa-vials"></i> Laboratory</a>
       <a [routerLinkActive]="['active-link']"  class="list-group-item list-group-item-action dashboard-bd list-hover text-white side-bg"><i class="fas fa-pills"></i> Pharmacy</a>
       <a [routerLinkActive]="['active-link']"  class="list-group-item list-group-item-action dashboard-bd list-hover text-white side-bg"><i class="fas fa-book-medical"></i> Medical History</a>
     </div>

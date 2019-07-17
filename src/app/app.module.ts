@@ -20,6 +20,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AdminDashboardModule} from './admin-dashboard/admin-dashboard.module';
 import {DatePipe} from '@angular/common';
 import {PatientTreatmentModule} from './patient-treatment/patient-treatment.module';
+import {LaboratoryModule} from './laboratory/laboratory.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {PatientTreatmentModule} from './patient-treatment/patient-treatment.modu
   ],
   imports: [
     BrowserModule,
+    LaboratoryModule,
     PatientTreatmentModule,
     AdminDashboardModule,
     AppRoutingModule,
