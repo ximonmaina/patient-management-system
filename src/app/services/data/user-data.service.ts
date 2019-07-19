@@ -11,6 +11,7 @@ import {TriageData} from '../../domainobjects/triage.data.';
 import {PatientTriageData} from '../../domainobjects/patient-triage.data';
 import {LabRequestData} from '../../domainobjects/lab-request.data';
 import {LabResultData} from '../../domainobjects/lab-result.data';
+import {Laboratory} from '../../domainobjects/laboratory';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,12 @@ export class UserDataService {
   constructor(private http: HttpClient,
              private jwtAuthenticationService: JwtAuthenticationService) { }
 
+  addLabResultsData(labResults: Laboratory) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.post(`${API_URL}/laboratory/addLabData`, labResults, {headers});
+  }
   getPatients() {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
@@ -27,7 +34,12 @@ export class UserDataService {
     // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
     return this.http.get<PatientData[]>(`${API_URL}/patient/getpatients`, {headers});
   }
-
+  getLabRequestById(id: number) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.get<LabRequestData>(`${API_URL}/labrequest/getLabTestReq/${id}`, {headers});
+  }
   getLabResultsData() {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
@@ -46,7 +58,7 @@ export class UserDataService {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });
-    return this.http.post(`${API_URL}/labrequest/addLabTestReq`, labRequest, {headers})
+    return this.http.post(`${API_URL}/labrequest/addLabTestReq`, labRequest, {headers});
   }
 
   getLabData() {
@@ -70,7 +82,7 @@ export class UserDataService {
      const headers = new HttpHeaders({
        Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
      });
-     return this.http.post(`${API_URL}/patient/addpatient`, patient, {headers})
+     return this.http.post(`${API_URL}/patient/addpatient`, patient, {headers});
    }
 
    getPatientById(id: number) {

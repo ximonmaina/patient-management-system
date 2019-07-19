@@ -1,0 +1,75 @@
+<div class="container-fluid pt-bg">
+  <form (ngSubmit)="saveLabResults(labresults)" [formGroup]="labresults"  class="margin-bottom">
+    <div class="row">
+      <div class="col-md-12 bg-light">
+        <span class="txt-position"><h3 style="color: #7f7f7f">Adding Lab Results</h3></span>
+      </div>
+    </div>
+   <div class="row">
+     <div class="col-md-6">
+       <div class="form-group">
+         <label for="patient" class="text-color">Patient*</label>
+         <input type="text"  class="form-control" [disabled]="true" id="patient" placeholder="{{patientName}}">
+       </div>
+     </div>
+     <div class="col-md-6">
+       <div class="form-group">
+         <label for="testName" class="text-color">Test Name*</label>
+         <input type="text" class="form-control" [disabled]="true" id="testName" placeholder="{{testname}}">
+       </div>
+     </div>
+   </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label  class="text-color">Test Results*</label>
+          <ck-editor formControlName="testResult" name="editor1" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+        </div>
+        <div class="error alert-warning" *ngIf="labresults.get('testResult').hasError('required') && labresults.get('testResult').touched">
+          Please record test results
+        </div>
+        <div class="error alert-warning" *ngIf="labresults.get('testResult').hasError('minlength') && labresults.get('testResult').touched">
+          Minimum of 5 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color">Doctor</label>
+          <input type="text" class="form-control" [disabled]="true" placeholder="{{doctorname}}">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color">Test Result Date</label>
+          <div>
+            <h6><span>{{testResultDate | date: 'fullDate'}}</span></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="text-color">Lab Technician</label>
+          <input type="text" [disabled]="true" placeholder="{{labTechName}}" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row button-margin" style="padding-top: 10px;">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <button [disabled]="labresults.invalid" type="submit" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+      </div>
+      <div class="col-md-4">
+        <button  [routerLink]="['/main-dashboard/laboratory-requests']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+  </form>
+</div>

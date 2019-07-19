@@ -1,6 +1,7 @@
 import {PatientData} from './patient.data';
 
 export class LabRequestData {
+  patientName: string;
   constructor (
     public id: number,
     public testName: string,
@@ -9,7 +10,10 @@ export class LabRequestData {
     public patient: PatientData[]
   ) {}
 
-  getDoctorName (): string {
-    return this.doctorName;
-}
+  getPatientName (): string {
+    for (let patient of this.patient) {
+      this.patientName = patient.patientFirstName + patient.patientLastName;
+    }
+    return this.patientName;
+ }
 }

@@ -16,20 +16,22 @@
             <th class="th-sm">Test Name</th>
             <th class="th-sm">Date</th>
             <th class="th-sm">Doctor</th>
-            <th class="th-sm">State</th>
-            <th></th>
+            <th class="th-sm">Status</th>
+            <th class="th-sm">Action</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let labReq of labRequests">
+          <tr *ngFor="let labReq of labRequests; let i = index">
               <td *ngFor="let patient of labReq.patient">
                 {{patient.patientFirstName}} {{patient.patientLastName}}
               </td>
             <td>{{labReq.testName}}</td>
             <td>{{labReq.dateOfRequest | date: 'fullDate'}}</td>
             <td>{{labReq.doctorName}}</td>
-            <td class="bg-success text-white" style="border-radius: 5px; margin: 5px;"><span>Active</span></td>
-            <td><button class="btn btn-block btn-info">Process</button></td>
+            <td><button class="btn bg-success text-white" [disabled]="true">Active</button></td>
+<!--            <td class="bg-success text-white" style="border-radius: 5px; margin: 5px;"><span>Active</span></td>-->
+            <td><button (click)="goToLab(i,labReq.id)" [disabled]="disablebutton[i]" class="btn btn-block btn-info">Process</button></td>
+<!--            <td *ngIf="isId"><button [disabled]="status" (click)="goToLab(i,labReq.id)" class="btn btn-block btn-info">Processing...</button></td>-->
           </tr>
           </tbody>
         </table>

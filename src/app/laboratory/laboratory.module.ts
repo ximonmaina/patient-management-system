@@ -5,9 +5,10 @@ import {CKEditorModule} from 'ngx-ckeditor';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {RouterModule} from '@angular/router';
 import { LaboratoryRequestsComponent } from './laboratory-requests/laboratory-requests.component';
+import { LaboratoryResultsComponent } from './laboratory-results/laboratory-results.component';
 
 @NgModule({
-  declarations: [LaboratoryRequestsComponent],
+  declarations: [LaboratoryRequestsComponent, LaboratoryResultsComponent],
   imports: [
     CommonModule,
     FormsModule,

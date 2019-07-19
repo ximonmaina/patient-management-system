@@ -33,31 +33,109 @@
     </div>
   </form>
 
-  <div class="row "style="margin-bottom: 300px;" >
-    <div class="col-md-12 text-lg-center">
-      <table id="dtMaterialDesignExample" class="table  table-responsive table-striped" cellspacing="0" width="100%">
-        <thead class="thead-light">
-        <tr>
-          <th class="th-sm">Patient Name</th>
-          <th class="th-sm">Test Name</th>
-          <th class="th-sm">Test Result</th>
-          <th class="th-sm">Date</th>
-          <th class="th-sm">Lab Technician</th>
-          <th class="th-sm">Doctor</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let labData of s">
-          <td style ="word-break:break-all;">{{labData.patientName}}</td>
-          <td style ="word-break:break-all;">{{labData.testName}}</td>
-          <td style ="word-break:break-all;">{{labData.testResult}}</td>
-          <td style ="word-break:break-all;">{{labData.testResultDate | date: 'fullDate'}}</td>
-          <td style ="word-break:break-all;">{{labData.staffName}}</td>
-          <td style ="word-break:break-all;">{{labData.nameOfDoctor}}</td>
-        </tr>
-        </tbody>
-      </table>
+<!--  display patient results-->
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="container-fluid" *ngFor="let labData of s" style="background-color: #F8F9FA; margin-bottom: 10px; border-radius: 3px;">
+        <div class="row" style="background-color: #E9ECEF; padding: 10px; border-radius: 3px;">
+          <div class="col-md-12 ">
+            <span><h5 style="font-family: 'Open Sans Condensed'"> Test Date: {{labData.testResultDate | date: 'fullDate'}}</h5></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Patient Name</label>
+              <div>
+                <span><h6 style="font-family: 'Open Sans'">{{labData.patientName}}</h6></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Test Name</label>
+              <div>
+                <span><h6 style="font-family: 'Open Sans'">{{labData.testName}}</h6></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Lab Technician</label>
+              <div>
+                <span><h6 style="font-family: 'Open Sans'">{{labData.staffName}}</h6></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Doctor</label>
+              <div>
+                <span><h6 style="font-family: 'Open Sans'">{{labData.nameOfDoctor}}</h6></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Test Results</label>
+              <div [innerHTML]="labData.testResult" class="align-content-lg-center">
+                <span>{{labData.testResult}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
     </div>
+    <div class="col-md-1"></div>
   </div>
+
+<!--  <div class="row">-->
+<!--    <div class="col-md-1"></div>-->
+<!--    <div class="col-md-10">-->
+<!--      <table id="dtMaterialDesignExample" class="table  table-responsive table-striped" cellspacing="0" width="100%">-->
+<!--        <thead class="thead-light">-->
+<!--        <tr>-->
+<!--          <th class="th-sm">Date</th>-->
+<!--          <th class="th-sm">Patient Name</th>-->
+<!--          <th class="th-sm">Test Name</th>-->
+<!--          <th class="th-sm">Test Result</th>-->
+<!--          <th class="th-sm">Lab Technician</th>-->
+<!--          <th class="th-sm">Doctor</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+
+<!--        <tr *ngFor="let labData of s">-->
+<!--          <td>{{labData.testResultDate | date: 'fullDate'}}</td>-->
+<!--          <td>{{labData.patientName}}</td>-->
+<!--          <td>{{labData.testName}}</td>-->
+<!--          <td [innerHTML]="labData.testResult">{{labData.testResult}}</td>-->
+<!--          <td>{{labData.staffName}}</td>-->
+<!--          <td>{{labData.nameOfDoctor}}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--    <div class="col-md-1"></div>-->
+<!--  </div>-->
+
+
+
+<!--  <div class="row "style="margin-bottom: 300px;" >-->
+<!--    <div class="col-md-12 text-lg-center">-->
+<!--      -->
+<!--    </div>-->
+<!--  </div>-->
 
 </div>
