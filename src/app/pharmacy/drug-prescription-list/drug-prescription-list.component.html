@@ -1,0 +1,43 @@
+<div class="container-fluid pt-bg">
+  <div class="row">
+    <div class="col-md-12 bg-light">
+      <span class="txt-position"><h3 style="color: #7f7f7f">Drug Prescription Requests</h3></span>
+      <button class="btn  btn-success fl-bg"><i class="fas fa-boxes"></i> <a [routerLink]="['']" style="text-decoration: none; color: white; padding: 5px;"> Manage Drugs Inventory</a></button>
+    </div>
+  </div>
+
+  <div class="row"  style="margin-bottom: 300px; ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="align-content-center" style="margin-top: 10px;">
+        <table id="dtMaterialDesignExample" class="table table-responsive-lg  table-margin table-striped" cellspacing="0" width="100%">
+          <thead class="thead-light">
+          <tr>
+            <th class="th-sm">Patient</th>
+            <th class="th-sm">Drug Prescription</th>
+            <th class="th-sm">No. of days</th>
+            <th class="th-sm">Usage Per Day</th>
+            <th class="th-sm">Date</th>
+            <th class="th-sm">Doctor</th>
+            <th class="th-sm">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let drugPresc of drugPrescriptions; let i = index">
+            <td *ngFor="let patient of drugPresc.patient">
+              {{patient.patientFirstName}} {{patient.patientLastName}}
+            </td>
+            <td>{{drugPresc.drugPrescription}}</td>
+            <td>{{drugPresc.numberOfDays}}</td>
+            <td>{{drugPresc.usagePerDay}}</td>
+            <td>{{drugPresc.dateOfPrescription | date: 'fullDate'}}</td>
+            <td>{{drugPresc.doctorName}}</td>
+            <td><button (click)="goToPharmacy(i,drugPresc.id)" [disabled]="disablebutton[i]" class="btn btn-block btn-info">Process</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

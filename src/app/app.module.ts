@@ -21,6 +21,7 @@ import {AdminDashboardModule} from './admin-dashboard/admin-dashboard.module';
 import {DatePipe} from '@angular/common';
 import {PatientTreatmentModule} from './patient-treatment/patient-treatment.module';
 import {LaboratoryModule} from './laboratory/laboratory.module';
+import {PharmacyModule} from './pharmacy/pharmacy.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {LaboratoryModule} from './laboratory/laboratory.module';
   ],
   imports: [
     BrowserModule,
+    PharmacyModule,
     LaboratoryModule,
     PatientTreatmentModule,
     AdminDashboardModule,

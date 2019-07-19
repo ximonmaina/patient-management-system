@@ -12,6 +12,8 @@ import {LabTestRequestComponent} from '../patient-treatment/lab-test-request/lab
 import {LabTestResultComponent} from '../patient-treatment/lab-test-result/lab-test-result.component';
 import {LaboratoryRequestsComponent} from '../laboratory/laboratory-requests/laboratory-requests.component';
 import {LaboratoryResultsComponent} from '../laboratory/laboratory-results/laboratory-results.component';
+import {DrugPrescriptionListComponent} from '../pharmacy/drug-prescription-list/drug-prescription-list.component';
+import {PharmacyComponent} from '../pharmacy/pharmacy/pharmacy.component';
 
 const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
@@ -28,7 +30,9 @@ const routes: Routes = [
       ]
     },
     {path: 'laboratory-requests', component: LaboratoryRequestsComponent, canActivate: [RouteGuardService]},
-    {path: 'lab-results/:id', component: LaboratoryResultsComponent, canActivate: [RouteGuardService]}
+    {path: 'lab-results/:id', component: LaboratoryResultsComponent, canActivate: [RouteGuardService]},
+    {path: 'drug-list', component: DrugPrescriptionListComponent, canActivate: [RouteGuardService]},
+    {path: 'pharmacy/:id', component: PharmacyComponent, canActivate: [RouteGuardService]}
   ]}
 ];
 

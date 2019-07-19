@@ -1,0 +1,80 @@
+<div class="container-fluid pt-bg">
+    <div class="row">
+      <div class="col-md-12 bg-light">
+        <span class="txt-position"><h3 style="color: #7f7f7f">Adding Prescription</h3></span>
+      </div>
+    </div>
+
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <div class="container-fluid" style="background-color: #F8F9FA; margin-bottom: 10px; border-radius: 3px;">
+            <div class="row" style="background-color: #E9ECEF; padding: 10px; border-radius: 3px;">
+              <div class="col-md-12 ">
+                <span><h5 style="font-family: 'Open Sans Condensed'"> Patient Drug Prescription</h5></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Patient Name</label>
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'">{{patientName}}</h6></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Consulting Doctor</label>
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'">{{doctorname}}</h6></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Drug Prescription</label>
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.drugPrescription}}</h6></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">No. of days</label>
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.numberOfDays}}</h6></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Usage per day</label>
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.usagePerDay}}</h6></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Date of prescription</label>
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.dateOfPrescription| date: 'fullDate'}}</h6></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+
+
+  <form (ngSubmit)="savePharmacyResults(pharmacy)" [formGroup]="pharmacy"  class="margin-bottom">
+  </form>
+</div>
