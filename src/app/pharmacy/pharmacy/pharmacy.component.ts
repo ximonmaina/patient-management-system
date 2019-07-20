@@ -63,6 +63,8 @@ export class PharmacyComponent implements OnInit {
               private getNameOfUser: UsernameService,
               private getUserDataByUsername: UserDataService,
               private getAllDrugs: UserDataService,
+              private updateDrugInventoryData: UserDataService,
+              private deleteDrugPrescription: UserDataService,
               private datePipe: DatePipe) { }
 
   ngOnInit() {
@@ -174,8 +176,28 @@ export class PharmacyComponent implements OnInit {
 
   updateDrugInventoryResults({value, valid}: {value: DrugInventory, valid: boolean}) {
     for (const drugInv of this.tempDrugInventory) {
+      delete drugInv.quantity;
       console.log(drugInv);
+      this.updateDrugInventoryData.updateDrugInventory(drugInv).subscribe(
+        data => {
+          console.log('Drug Inv updated successfully');
+        },
+        error => {
+          console.log(error);
+        }
+        );
     }
+
+    this.deleteDrugPrescription.deleteDrugPrescriptions(this.drugPrescId).subscribe(
+      response => {
+        console.log('drug presc deleted successfully');
+        this.router.navigate(['/main-dashboard/drug-list']);
+        this.tempDrugInventory = [];
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   tempSaveDrugInventoryResults({value, valid}: {value: DrugInventory, valid: boolean}) {
@@ -217,5 +239,10 @@ export class PharmacyComponent implements OnInit {
     } else {
       this.exceedsInventory = false;
     }
+  }
+
+  cancelUpdate() {
+    this.tempDrugInventory = [];
+    this.router.navigate(['/main-dashboard/drug-list']);
   }
 }

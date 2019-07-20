@@ -16,6 +16,7 @@ import {DrugPrescriptionData} from '../../domainobjects/drug-prescription.data';
 import {DrugInventory} from '../../domainobjects/drug-inventory';
 import {PharmacyData} from '../../domainobjects/pharmacy-data';
 import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
+import {DrugInventoryData} from '../../domainobjects/drug-inventory-data';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +66,7 @@ export class UserDataService {
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });
 
-    return this.http.patch<GetUserData>(`${API_URL}/drug-inventory/updateDrugInv`, drugInventory, {headers});
+    return this.http.patch<DrugInventoryData>(`${API_URL}/drug-inventory/updateDrugInv`, drugInventory, {headers});
 
   }
 
@@ -82,6 +83,13 @@ export class UserDataService {
     });
     // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
     return this.http.get<DrugPrescriptionData[]>(`${API_URL}/drugprescription/getAllDrugPrescriptions`, {headers});
+  }
+
+  deleteDrugPrescriptions(id) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.delete(`${API_URL}/drugprescription/deleteDrugPresc/${id}`, {headers});
   }
 
   addLabResultsData(labResults: Laboratory) {
@@ -116,6 +124,7 @@ export class UserDataService {
     });
     return this.http.delete(`${API_URL}/labrequest/deleteLabRequest/${id}`, {headers});
   }
+
 
   addLabReqData(labRequest: LabRequestData) {
     const headers = new HttpHeaders({
