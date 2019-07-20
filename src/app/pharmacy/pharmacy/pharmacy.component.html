@@ -28,7 +28,7 @@
                 <div class="form-group">
                   <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Consulting Doctor</label>
                   <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{doctorname}}</h6></span>
+                    <span><h6 style="font-family: 'Open Sans'">{{nameOfDoctor}}</h6></span>
                   </div>
                 </div>
               </div>
@@ -36,17 +36,17 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Drug Prescription</label>
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Drug Name</label>
                   <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.drugPrescription}}</h6></span>
+                    <span><h6 style="font-family: 'Open Sans'">{{drugName}}</h6></span>
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">No. of days</label>
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Pharmacist</label>
                   <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.numberOfDays}}</h6></span>
+                    <span><h6 style="font-family: 'Open Sans'">{{pharmacistName}}</h6></span>
                   </div>
                 </div>
               </div>
@@ -54,9 +54,9 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Usage per day</label>
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Drug Notes</label>
                   <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.usagePerDay}}</h6></span>
+                    <span><h6 style="font-family: 'Open Sans'">{{drugNotes}}</h6></span>
                   </div>
                 </div>
               </div>
@@ -64,17 +64,98 @@
                 <div class="form-group">
                   <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Date of prescription</label>
                   <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{drugPrescriptionData.dateOfPrescription| date: 'fullDate'}}</h6></span>
+                    <span><h6 style="font-family: 'Open Sans'">{{dateOfPrescription| date: 'fullDate'}}</h6></span>
                   </div>
                 </div>
               </div>
             </div>
+<!--            <div class="row">-->
+
+<!--              <div class="col-md-6">-->
+<!--                <button type="submit" (click)="savePharmacy()" class="btn btn-color text-white btn-hover"-->
+<!--                        data-toggle="tooltip" data-placement="top" title="Submit this data ONLY after updating drug inventory below">Submit</button>-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
         </div>
         <div class="col-md-1"></div>
       </div>
 
+  <div class="row" style="background-color: #E9ECEF; padding: 10px; border-radius: 3px; margin: 5px;">
+    <div class="col-md-12 ">
+      <span><h5 style="font-family: 'Open Sans Condensed'"> Issue Drug(s) and Update Inventory</h5></span>
+    </div>
+  </div>
 
-  <form (ngSubmit)="savePharmacyResults(pharmacy)" [formGroup]="pharmacy"  class="margin-bottom">
+  <form (ngSubmit)="updateDrugInventoryResults(drugInventory)" [formGroup]="drugInventory"  class="margin-bottom">
+    <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="text-color">Drug(s) Name</label>
+            <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select drug" virtualScroll="true"
+                       formControlName="id" (click)="getDrugInv(drugInventory)">
+              <ng-option *ngFor="let drugInv of drugInventoryData" [value]="drugInv.id"  >
+                {{drugInv.drugName}} {{drugInv.barCodeId}}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="error alert-warning" *ngIf="drugInventory.get('drugName').hasError('required') && drugInventory.get('drugName').touched">
+            Select drug name from list
+          </div>
+        </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color">Drug(s) Barcode Id</label>
+          <input type="text"  formControlName="barCodeId" class="form-control"   placeholder="Barcode Id">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color">Selling price</label>
+          <input type="text"  formControlName="sellingPrice" class="form-control"  placeholder="Selling Price">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color">Quantity*</label>
+          <input type="number" min="0" max="{{maxInventoryQuantity}}" (focusout)="checkInventory(drugInventory)"  (click)="checkInventory(drugInventory)" (keypress)="checkInventory(drugInventory)"  formControlName="quantity" class="form-control"   placeholder="Quantity: (stock in inventory: {{maxInventoryQuantity}}">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('quantity').hasError('required') && drugInventory.get('quantity').touched">
+          Drug quantity issued required
+        </div>
+        <div class="error alert-warning" *ngIf="exceedsInventory">
+          You have exceeded inventory limit of {{maxInventoryQuantity}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color">Expiry Date</label>
+          <input type="text" [disabled]="true" class="form-control"  placeholder="{{drugInvDate| date: 'fullDate'}}">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color">Manufacturer</label>
+          <input type="text"   formControlName="manufacturer" class="form-control"   placeholder="Drug Manufacturer">
+        </div>
+      </div>
+    </div>
+
+    <div class="row button-margin" style="padding-top: 10px;">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <button  *ngIf="drugInventory.valid" type="submit" [disabled]="drugInventory.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+      </div>
+      <div class="col-md-4">
+        <button  [routerLink]="['/main-dashboard/drug-list']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
   </form>
 </div>

@@ -1,11 +1,11 @@
-import {PatientData} from './patient.data';
-
-export class DrugPrescriptionSave {
+export class PharmacyData {
   constructor(
     public id: number,
     public drugPrescription: string,
-    public doctorName: string,
     public dateOfPrescription: string,
+    public nameOfDoctor: string,
+    public staffName: string,
     public patient: number
   ) {}
+
 }

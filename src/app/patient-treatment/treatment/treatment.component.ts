@@ -10,6 +10,11 @@ import {debounceTime, delay, filter, map, takeUntil, tap} from 'rxjs/operators';
 import {UsernameService} from '../../services/username.service';
 import {PatientTriageData} from '../../domainobjects/patient-triage.data';
 import {TriageData} from '../../domainobjects/triage.data.';
+import {DrugInventory} from '../../domainobjects/drug-inventory';
+import {DrugPrescriptionData} from '../../domainobjects/drug-prescription.data';
+import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
+import {PharmacyData} from '../../domainobjects/pharmacy-data';
+import {PharmacyTemp} from '../../domainobjects/pharmacy-temp';
 interface Event {
   name: string;
   value: any;
@@ -21,7 +26,7 @@ interface Event {
   templateUrl: './treatment.component.html',
   styleUrls: ['./treatment.component.css']
 })
-export class TreatmentComponent implements OnInit, OnDestroy {
+export class TreatmentComponent implements OnInit {
 
    diagnosisDate =  Date.now();
    doctorName: string;
@@ -31,78 +36,158 @@ export class TreatmentComponent implements OnInit, OnDestroy {
   modalState = false;
   patientName: string;
   patientId = 0;
+  patientIdTwo = 0;
+  treatmentData: TreatmentData;
+  treatment: FormGroup;
+
+  // Drug inventory
+  drugInventoryData: DrugInventory[];
+  drugPrescription: string;
+  savePatientDrugPrescription = '';
+  finalDrugPrescriptionValue: string;
+  counter = 0;
+  commitPharmacyData: PharmacyData;
+  commitDrugPrescriptions: DrugPrescriptionSave;
+
+  // list of patients
+  public patients: PatientData[];
+  public allPatients: PatientData[];
+  private nameOfDoctor: string;
+  private drugPrescriptionOne: FormGroup;
+  private dateOfPrescription: string;
+  private patient: number;
+  private staffName: string;
 
   constructor(private saveTreatmentData: UserDataService,
+              private saveDrugPrescription: UserDataService,
+              private savePharmacyData: UserDataService,
               private getPatients: UserDataService,
               private getNameOfUser: UsernameService,
               private getUserDataByUsername: UserDataService,
               private router: Router,
               private formBuilder: FormBuilder,
+              private getAllDrugs: UserDataService,
               private datePipe: DatePipe) { }
 
 
-  treatmentData: TreatmentData;
-  treatment: FormGroup;
-
-
-  // list of patients
-  public patients: PatientData[];
-  public allPatients: PatientData[];
-
-  // control for the selected patient for server side filtering
-   public patientServerSideCtrl: FormControl = new FormControl();
-
-   // control for filter for server server side
-  public patientServerSideFilteringCtrl: FormControl = new FormControl();
-
-  // indicate search operation is in progress
-  public searching = false;
-
-  // list of banks filtered after server side search
-  public filteredServerPatients: ReplaySubject<PatientData[]> = new ReplaySubject<PatientData[]>(1);
-
-  // subject that emits when the component has been destroyed
-  protected _onDestroy = new Subject<void>();
 
   ngOnInit() {
     this.getAllPatients();
     this.getStaffName();
-
-    // this.patientServerSideFilteringCtrl.valueChanges
-    //   .pipe(
-    //     filter(search => !!search),
-    //     tap(() => this.searching = true),
-    //     takeUntil(this._onDestroy),
-    //     debounceTime(200),
-    //     map(search => {
-    //       if (!this.patients) {
-    //         return [];
-    //       }
-    //
-    //       // get data and filter it
-    //       return this.patients.filter(patient => patient.patientFirstName.toLowerCase().indexOf(search) > -1);
-    //     }),
-    //     delay(500)
-    //   )
-    //   .subscribe(filteredPatients => {
-    //     this.searching = false;
-    //     this.filteredServerPatients.next(filteredPatients);
-    //   },
-    //     error => {
-    //       this.searching = false;
-    //       console.log(error);
-    //     });
-
+    this.getDrugs();
     this.treatment = this.formBuilder.group({
       disease: ['', [Validators.required, Validators.minLength(5)]],
       caseNotes: ['', [Validators.required, Validators.minLength(5)]],
-      drugPrescription: ['', [Validators.required, Validators.minLength(5)]],
       // staffName: [{value: this.doctorName, disabled: true}],
       // dateOfDiagnosis: ['', [Validators.required]],
       patient: ['', [Validators.required]]
     });
 
+    this.drugPrescriptionOne = this.formBuilder.group( {
+      drugName: ['', Validators.required],
+      drugNotes: ['']
+    });
 
+
+  }
+
+  addDrugPrescription({value, valid}: {value: PharmacyTemp, valid: boolean}) {
+    console.log(value);
+  }
+
+  saveDrugPrescriptionOkay({value, valid}: {value: PharmacyData, valid: boolean}) {
+    this.commitPharmacyData = value;
+    this.finalDrugPrescriptionValue = this.savePatientDrugPrescription;
+    this.drugPrescription = this.finalDrugPrescriptionValue;
+      this.dateOfPrescription = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
+      this.nameOfDoctor = this.doctorName;
+      this.staffName = this.doctorName;
+      this.patient = this.patientIdTwo;
+
+      // pharmacy data
+    this.commitPharmacyData = new PharmacyData(
+      0,
+      this.drugPrescription,
+    this.dateOfPrescription,
+    this.nameOfDoctor,
+    this.staffName,
+    this.patient
+  );
+
+    // drug prescription data
+    this.commitDrugPrescriptions = new DrugPrescriptionSave(
+      0,
+      this.drugPrescription,
+      this.doctorName,
+      this.dateOfPrescription,
+      this.patient
+    );
+    // console.log(this.commitPharmacyData);
+    // console.log(this.commitDrugPrescriptions);
+    this.savePharmacyData.addPharmacyData(this.commitPharmacyData).subscribe(
+      data => {
+        console.log('pharmacy data save successfully');
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.saveDrugPrescription.addDrugPrescriptionData(this.commitDrugPrescriptions).subscribe(
+      data => {
+        console.log('drug prescriptions saved successfully');
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    // this.savePharmacyData
+    this.counter = 0;
+    this.savePatientDrugPrescription = '';
+  }
+
+  addDrugDescriptionDetails({value, valid}: {value: PharmacyTemp, valid: boolean}) {
+    ++this.counter;
+    this.savePatientDrugPrescription += this.counter + ' <p> Drug Name: ' + value.drugName + ', Drug Notes: ' + value.drugNotes + ' </p>';
+    this.drugPrescriptionOne.reset();
+  }
+
+  clear() {
+    this.counter = 0;
+    this.savePatientDrugPrescription = '';
+  }
+
+  addPatientPrescription({value, valid}: {value: TreatmentData, valid: boolean}) {
+    console.log(value);
+    this.treatmentData = value;
+    // console.log(this.treatmentData.patient);
+    this.patientIdTwo = this.treatmentData.patient;
+
+    this.getPatients.getPatientTriageData(this.treatmentData.patient).subscribe(
+      data => {
+        this.patientTriageData = data;
+        this.getData = this.patientTriageData['PatientTriage'];
+        console.log(this.getData);
+        this.patientName = this.patientTriageData['patientFirstName'] + ' ' + this.patientTriageData['patientLastName'];
+
+
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getDrugs() {
+    return this.getAllDrugs.getDrugInventory().subscribe(
+      data => {
+        this.drugInventoryData = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   getStaffName() {
@@ -159,10 +244,6 @@ export class TreatmentComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy() {
-    this._onDestroy.next();
-    this._onDestroy.complete();
-  }
   getAllPatients() {
     return this.getPatients.getPatients().pipe(delay(500)).subscribe(
       data => {

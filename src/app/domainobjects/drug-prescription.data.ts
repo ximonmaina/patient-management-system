@@ -5,8 +5,6 @@ export class DrugPrescriptionData {
     public id: number,
     public drugPrescription: string,
     public doctorName: string,
-    public numberOfDays: string,
-    public usagePerDay: string,
     public dateOfPrescription: string,
     public patient: PatientData[]
   ) {}

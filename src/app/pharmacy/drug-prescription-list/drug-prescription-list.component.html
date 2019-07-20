@@ -15,8 +15,6 @@
           <tr>
             <th class="th-sm">Patient</th>
             <th class="th-sm">Drug Prescription</th>
-            <th class="th-sm">No. of days</th>
-            <th class="th-sm">Usage Per Day</th>
             <th class="th-sm">Date</th>
             <th class="th-sm">Doctor</th>
             <th class="th-sm">Action</th>
@@ -27,9 +25,7 @@
             <td *ngFor="let patient of drugPresc.patient">
               {{patient.patientFirstName}} {{patient.patientLastName}}
             </td>
-            <td>{{drugPresc.drugPrescription}}</td>
-            <td>{{drugPresc.numberOfDays}}</td>
-            <td>{{drugPresc.usagePerDay}}</td>
+            <td [innerHTML]="drugPresc.drugPrescription">{{drugPresc.drugPrescription}}</td>
             <td>{{drugPresc.dateOfPrescription | date: 'fullDate'}}</td>
             <td>{{drugPresc.doctorName}}</td>
             <td><button (click)="goToPharmacy(i,drugPresc.id)" [disabled]="disablebutton[i]" class="btn btn-block btn-info">Process</button></td>

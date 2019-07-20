@@ -3,8 +3,14 @@
   <div class="row">
     <div class="col-md-12 bg-light">
       <span class="txt-position"><h3 style="color: #7f7f7f">Adding Diagnosis</h3></span>
-      <button type="submit" class="btn btn-success fl-bg" style="text-decoration: none; color: white;"
-              data-toggle="modal" data-target="#exampleModalScrollable" (click)="getPatientId(treatment)">Check Patient Triage</button>
+      <div class="fl-bg">
+        <span><button type="submit" class="btn btn-success" style="text-decoration: none; color: white;"
+                      data-toggle="modal" data-target="#exampleModalScrollable" (click)="getPatientId(treatment)">Check Patient Triage</button></span>
+        <span>
+          <button type="submit" class="btn btn-success" style="text-decoration: none; color: white; margin-left: 10px;"  (click)="addPatientPrescription(treatment)"
+                  data-toggle="modal" data-target="#exampleModal">Add Drug Prescription</button>
+        </span>
+      </div>
     </div>
   </div>
 
@@ -54,21 +60,21 @@
       </div>
     </div>
     
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="drugPrescription" class="text-color">Drugs Prescription*</label>
-          <input type="text" class="form-control" formControlName="drugPrescription" id="drugPrescription"
-                 placeholder="Enter patient drug prescription">
-        </div>
-        <div class="error alert-warning" *ngIf="treatment.get('drugPrescription').hasError('required') && treatment.get('drugPrescription').touched">
-          Patient drug drescription details should be recorded!
-        </div>
-        <div class="error alert-warning" *ngIf="treatment.get('drugPrescription').hasError('minlength') && treatment.get('drugPrescription').touched">
-          Minimum of 5 characters
-        </div>
-      </div>
-    </div>
+<!--    <div class="row">-->
+<!--      <div class="col-md-12">-->
+<!--        <div class="form-group">-->
+<!--          <label for="drugPrescriptionOne" class="text-color">Drugs Prescription*</label>-->
+<!--          <input type="text" class="form-control" formControlName="drugPrescriptionOne" id="drugPrescriptionOne"-->
+<!--                 placeholder="Enter patient drug prescription">-->
+<!--        </div>-->
+<!--        <div class="error alert-warning" *ngIf="treatment.get('drugPrescriptionOne').hasError('required') && treatment.get('drugPrescriptionOne').touched">-->
+<!--          Patient drug drescription details should be recorded!-->
+<!--        </div>-->
+<!--        <div class="error alert-warning" *ngIf="treatment.get('drugPrescriptionOne').hasError('minlength') && treatment.get('drugPrescriptionOne').touched">-->
+<!--          Minimum of 5 characters-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="row">
       <div class="col-md-6">
@@ -105,6 +111,74 @@
       <div class="col-md-2"></div>
     </div>
   </form>
+
+<!--  add drug prescription modal-->
+  <div class="row">
+    <form *ngIf="patientIdTwo" (ngSubmit)="addDrugPrescription(drugPrescriptionOne)" [formGroup]="drugPrescriptionOne"  class="margin-bottom">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Drug Prescription for  <span *ngIf="patientIdTwo">{{patientName}}</span> <span *ngIf="!patientIdTwo">&lt;not available&gt;</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="text-color">Drug(s) Name</label>
+                    <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select drug" virtualScroll="true"
+                               formControlName="drugName">
+                      <ng-option *ngFor="let drugInv of drugInventoryData" [value]="drugInv.drugName"  >
+                        {{drugInv.drugName}} {{drugInv.barCodeId}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="error alert-warning" *ngIf="drugPrescriptionOne.get('drugName').hasError('required') && drugPrescriptionOne.get('drugName').touched">
+                    Select drug name from list
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="text-color">Drug(s) Notes</label>
+                    <textarea formControlName="drugNotes" class="form-control"   placeholder="Enter drug notes(optional)"> </textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" (click)="clear()"   class="btn btn-block btn-color text-white btn-hover">Remove All</button>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                  <button type="button" (click)="addDrugDescriptionDetails(drugPrescriptionOne)" [disabled]="drugPrescriptionOne.invalid" class="btn btn-block btn-color text-white btn-hover">Add</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" [innerHTML]="savePatientDrugPrescription">
+                  <span>{{savePatientDrugPrescription}}</span>
+                </div>
+              </div>
+
+            <div *ngIf="!patientIdTwo">
+              <h3 class="bg-warning">Please select patient name</h3>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" (click)="saveDrugPrescriptionOkay(drugPrescriptionOne)" [disabled]="drugPrescriptionOne.valid" class="btn btn-primary" data-dismiss="modal">Save & Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
 
   <!-- Modal -->
   <div  class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">

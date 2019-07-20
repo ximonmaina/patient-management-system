@@ -14,6 +14,8 @@ import {LabResultData} from '../../domainobjects/lab-result.data';
 import {Laboratory} from '../../domainobjects/laboratory';
 import {DrugPrescriptionData} from '../../domainobjects/drug-prescription.data';
 import {DrugInventory} from '../../domainobjects/drug-inventory';
+import {PharmacyData} from '../../domainobjects/pharmacy-data';
+import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,34 @@ export class UserDataService {
 
   constructor(private http: HttpClient,
              private jwtAuthenticationService: JwtAuthenticationService) { }
+
+  addDrugPrescriptionData(drugPrescriptionSave: DrugPrescriptionSave) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.post(`${API_URL}/drugprescription/addDrugPresc`, drugPrescriptionSave, {headers});
+  }
+
+  addPharmacyData(pharmacyData: PharmacyData) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.post(`${API_URL}/pharmacy/addPharmData`, pharmacyData, {headers});
+  }
+  getSingleDrugInventory(id) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<DrugInventory>(`${API_URL}/drug-inventory/getDrugInventory/${id}`, {headers});
+  }
+  getDrugInventory() {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<DrugInventory[]>(`${API_URL}/drug-inventory/getAllDrugs`, {headers});
+  }
 
   addDrugInventoryData(drugInventory: DrugInventory) {
     const headers = new HttpHeaders({
