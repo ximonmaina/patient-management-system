@@ -23,7 +23,16 @@
                   </div>
                 </div>
               </div>
-
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Patient Age</label>
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'">{{patientAge}}</h6></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Consulting Doctor</label>
@@ -32,39 +41,21 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Drug Name</label>
-                  <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{drugName}}</h6></span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Pharmacist</label>
-                  <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{pharmacistName}}</h6></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Drug Notes</label>
-                  <div>
-                    <span><h6 style="font-family: 'Open Sans'">{{drugNotes}}</h6></span>
-                  </div>
-                </div>
-              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Date of prescription</label>
                   <div>
                     <span><h6 style="font-family: 'Open Sans'">{{dateOfPrescription| date: 'fullDate'}}</h6></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="text-color" h5 style="font-family: 'Open Sans Condensed'">Drug Prescription</label>
+                  <div [innerHTML]="drugDescription">
+                    <span><h6 style="font-family: 'Open Sans'">{{drugDescription}}</h6></span>
                   </div>
                 </div>
               </div>
@@ -83,7 +74,10 @@
 
   <div class="row" style="background-color: #E9ECEF; padding: 10px; border-radius: 3px; margin: 5px;">
     <div class="col-md-12 ">
-      <span><h5 style="font-family: 'Open Sans Condensed'"> Issue Drug(s) and Update Inventory</h5></span>
+      <span class="txt-position"><h5 style="font-family: 'Open Sans Condensed'"> Issue Drug(s) and Update Inventory</h5></span>
+      <span class="fl-bg">
+          <button style="font-family: 'Open Sans Condensed'" *ngIf="drugInventory.valid" type="button" (click)="tempSaveDrugInventoryResults(drugInventory)" [disabled]="drugInventory.invalid" class="btn btn-block btn-color text-white btn-hover">Update</button>
+      </span>
     </div>
   </div>
 
@@ -114,14 +108,14 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label class="text-color">Selling price</label>
+          <label class="text-color">Selling price (in Kshs)</label>
           <input type="text"  formControlName="sellingPrice" class="form-control"  placeholder="Selling Price">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label class="text-color">Quantity*</label>
-          <input type="number" min="0" max="{{maxInventoryQuantity}}" (focusout)="checkInventory(drugInventory)"  (click)="checkInventory(drugInventory)" (keypress)="checkInventory(drugInventory)"  formControlName="quantity" class="form-control"   placeholder="Quantity: (stock in inventory: {{maxInventoryQuantity}}">
+          <input type="number" min="0" max="{{maxInventoryQuantity}}" (focusout)="checkInventory(drugInventory)"  (click)="checkInventory(drugInventory)" (keypress)="checkInventory(drugInventory)"  formControlName="quantity" class="form-control"   placeholder="Quantity: (in stock: {{maxInventoryQuantity}}">
         </div>
         <div class="error alert-warning" *ngIf="drugInventory.get('quantity').hasError('required') && drugInventory.get('quantity').touched">
           Drug quantity issued required
@@ -147,10 +141,18 @@
       </div>
     </div>
 
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
     <div class="row button-margin" style="padding-top: 10px;">
       <div class="col-md-2"></div>
       <div class="col-md-4">
-        <button  *ngIf="drugInventory.valid" type="submit" [disabled]="drugInventory.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+        <button  type="submit" [disabled]="drugInventory.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Save & Exit</button>
       </div>
       <div class="col-md-4">
         <button  [routerLink]="['/main-dashboard/drug-list']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>

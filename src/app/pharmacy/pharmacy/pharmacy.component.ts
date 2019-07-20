@@ -23,23 +23,36 @@ export class PharmacyComponent implements OnInit {
   drugPrescId: number;
   drugInventory: FormGroup;
   drugInventoryData: DrugInventory[];
+  tempDrugInventory: DrugInventory[] = [];
   updateDrugInventory: DrugInventory;
+  addDrugInventory: DrugInventory;
 
 
   // Pharmacy data
-  drugDosage: string;
   dateOfPrescription: string;
   nameOfDoctor: string;
   staffName: string;
   patient: number;
-  drugName: string;
-  drugNotes: string;
+  drugDescription: string;
   maxInventoryQuantity: number;
   inventory: number;
   exceedsInventory: boolean;
+  patientAge: number;
   // end of pharmacy data
 
   drugInvDate: Date;
+
+  // Drug inventory data
+  private id: number;
+  private barCodeId: number;
+  private drugName: string;
+  private unitPrice: number;
+  private sellingPrice: number;
+  private inventory: number;
+  private expiryDate: Date;
+  private quantity: number;
+  private manufacturer: string;
+  private notes: string;
 
 
   constructor(private savePharmacyData: UserDataService,
@@ -115,13 +128,14 @@ export class PharmacyComponent implements OnInit {
         for (const patient of this.drugPrescriptionData.patient) {
           this.patientName = patient.patientMiddleName + ' ' + patient.patientFirstName + ' ' + patient.patientLastName;
           this.patientId = patient.id;
+          this.patientAge = patient.patientAge;
         }
-        this.drugName = this.drugPrescriptionData['drugName'];
+        this.drugDescription = this.drugPrescriptionData['drugPrescription'];
         // tslint:disable-next-line:max-line-length
         this.dateOfPrescription = this.drugPrescriptionData.dateOfPrescription;
         this.nameOfDoctor = this.drugPrescriptionData.doctorName;
         this.patient = this.patientId;
-        this.drugNotes = this.drugPrescriptionData.drugPrescription;
+
 
 
       },
@@ -159,7 +173,30 @@ export class PharmacyComponent implements OnInit {
   }
 
   updateDrugInventoryResults({value, valid}: {value: DrugInventory, valid: boolean}) {
+    for (const drugInv of this.tempDrugInventory) {
+      console.log(drugInv);
+    }
+  }
+
+  tempSaveDrugInventoryResults({value, valid}: {value: DrugInventory, valid: boolean}) {
     console.log(value);
+    this.id = this.updateDrugInventory.id;
+      this.drugName = this.updateDrugInventory.drugName;
+      this.barCodeId = this.updateDrugInventory.barCodeId;
+      this.unitPrice = this.updateDrugInventory.unitPrice;
+      this.sellingPrice = this.updateDrugInventory.sellingPrice;
+      this.expiryDate = this.updateDrugInventory.expiryDate;
+      this.notes = this.updateDrugInventory.notes;
+      this.quantity = value.quantity;
+      this.inventory = Number(this.updateDrugInventory.inventory) - Number(value.quantity);
+      this.manufacturer = this.updateDrugInventory.manufacturer;
+      this.addDrugInventory = new DrugInventory(
+        this.id, this.barCodeId, this.drugName, this.unitPrice, this.sellingPrice,
+        this.inventory, this.expiryDate, this.quantity, this.manufacturer, this.notes
+      );
+    this.tempDrugInventory.push(this.addDrugInventory);
+    this.drugInventory.reset();
+    console.log(this.tempDrugInventory);
   }
 
   // savePharmacy() {
