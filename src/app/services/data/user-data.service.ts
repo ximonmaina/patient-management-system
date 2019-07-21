@@ -39,6 +39,13 @@ export class UserDataService {
     });
     return this.http.post(`${API_URL}/pharmacy/addPharmData`, pharmacyData, {headers});
   }
+
+  deleteDrugFromInventory(id) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.delete(`${API_URL}/drug-inventory/deleteDrugInv/${id}`, {headers});
+  }
   getSingleDrugInventory(id) {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()

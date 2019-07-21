@@ -1,0 +1,53 @@
+<div class="container-fluid pt-bg">
+  <div class="row">
+    <div class="col-md-12 bg-light">
+      <span class="txt-position"><h3 style="color: #7f7f7f">Drug Inventory List</h3></span>
+      <button class="btn  btn-success fl-bg"><i class="fas fa-boxes"></i> <a [routerLink]="['/main-dashboard/add-drug']" style="text-decoration: none; color: white; padding: 5px;"> Add Drugs To Inventory</a></button>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 300px; ">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="align-content-center" style="margin-top: 10px;">
+        <nav class="navbar navbar-light bg-success"  *ngIf="message" style="margin: 10px;" >
+          <span class="txt-position navbar-brand mb-0 h1 text-white">{{message}}</span>
+          <span class="fl-bg navbar-brand mb-0 h1"><button (click)="removeMessage()" class="btn  btn-sm btn-secondary text-white">Close</button></span>
+        </nav>
+        <table id="dtMaterialDesignExample" class="table table-responsive-lg  table-margin table-striped" cellspacing="0" width="100%">
+          <thead class="thead-light">
+          <tr>
+            <th class="th-sm">Barcode Id</th>
+            <th class="th-sm">Drug Name</th>
+            <th class="th-sm">Unit Price</th>
+            <th class="th-sm">Selling Price</th>
+            <th class="th-sm">Inventory</th>
+            <th class="th-sm">Expiry Date</th>
+            <th class="th-sm">Manufacturer</th>
+            <th class="th-sm">Notes</th>
+            <th class="th-sm"></th>
+            <th class="th-sm"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let drugInv of drugInventoryData">
+            <td>{{drugInv.barCodeId}}</td>
+            <td>{{drugInv.drugName}}</td>
+            <td>{{drugInv.unitPrice}}</td>
+            <td>{{drugInv.sellingPrice}}</td>
+            <td>{{drugInv.inventory}}</td>
+            <td>{{drugInv.expiryDate | date: 'fullDate'}}</td>
+            <td>{{drugInv.manufacturer}}</td>
+            <td>{{drugInv.notes}}</td>
+            <td><button  (click)="updateDrug(drugInv.id)" class="btn btn-success">Update</button></td>
+            <td><button  (click)="deletedrug(drugInv.id)" class="btn btn-danger">Delete</button></td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+
+  </div>
+</div>

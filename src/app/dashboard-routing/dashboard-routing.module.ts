@@ -14,6 +14,9 @@ import {LaboratoryRequestsComponent} from '../laboratory/laboratory-requests/lab
 import {LaboratoryResultsComponent} from '../laboratory/laboratory-results/laboratory-results.component';
 import {DrugPrescriptionListComponent} from '../pharmacy/drug-prescription-list/drug-prescription-list.component';
 import {PharmacyComponent} from '../pharmacy/pharmacy/pharmacy.component';
+import {DrugInventoryListComponent} from '../pharmacy/drug-inventory-list/drug-inventory-list.component';
+import {AddNewDrugToInventoryComponent} from '../pharmacy/add-new-drug-to-inventory/add-new-drug-to-inventory.component';
+import {UpdateDrugComponent} from '../pharmacy/update-drug/update-drug.component';
 
 const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
@@ -32,7 +35,10 @@ const routes: Routes = [
     {path: 'laboratory-requests', component: LaboratoryRequestsComponent, canActivate: [RouteGuardService]},
     {path: 'lab-results/:id', component: LaboratoryResultsComponent, canActivate: [RouteGuardService]},
     {path: 'drug-list', component: DrugPrescriptionListComponent, canActivate: [RouteGuardService]},
-    {path: 'pharmacy/:id', component: PharmacyComponent, canActivate: [RouteGuardService]}
+    {path: 'pharmacy/:id', component: PharmacyComponent, canActivate: [RouteGuardService]},
+    {path: 'drug-inv-list', component: DrugInventoryListComponent, canActivate: [RouteGuardService]},
+    {path: 'add-drug', component: AddNewDrugToInventoryComponent, canActivate: [RouteGuardService]},
+    {path: 'update-drug/:id' , component: UpdateDrugComponent, canActivate: [RouteGuardService]}
   ]}
 ];
 
