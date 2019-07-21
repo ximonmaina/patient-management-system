@@ -1,1 +1,115 @@
-<p>update-drug works!</p>
+<div class="container-fluid pt-bg">
+  <div class="row">
+    <div class="col-md-12 bg-light">
+      <span><h3 style="color: #7f7f7f">Update Drug(s)</h3></span>
+    </div>
+  </div>
+  <form (ngSubmit)="saveDrug(drugInventory)" [formGroup]="drugInventory" class="margin-bottom">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="barCodeId" class="text-color">Barcode Id</label>
+          <input type="number" min="0" class="form-control" formControlName="barCodeId" id="barCodeId" placeholder="Enter Drug Barcode Id">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('barCodeId').hasError('required') && drugInventory.get('barCodeId').touched">
+          Barcode id required
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('barCodeId').hasError('minlength') && drugInventory.get('barCodeId').touched">
+          Minimum of 7 numbers
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="drugName" class="text-color">Drug(s) Name</label>
+          <input type="text" formControlName="drugName" placeholder="Enter drug name"  id="drugName" class="form-control">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('drugName').hasError('required') && drugInventory.get('drugName').touched">
+          Drug name required
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('drugName').hasError('minlength') && drugInventory.get('drugName').touched">
+          Minimum of 2 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="unitPrice" class="text-color">Unit Price (in Kshs)</label>
+          <input type="number" min="0" class="form-control" formControlName="unitPrice" id="unitPrice" placeholder="Enter unit price">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('unitPrice').hasError('required') && drugInventory.get('unitPrice').touched">
+          Unit price required
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('unitPrice').hasError('minlength') && drugInventory.get('unitPrice').touched">
+          Minimum of 1 number(s)
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="sellingPrice" class="text-color">Selling price (in Kshs)</label>
+          <input type="number" formControlName="sellingPrice" placeholder="Enter selling price"  id="sellingPrice" class="form-control">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('sellingPrice').hasError('required') && drugInventory.get('sellingPrice').touched">
+          Selling price required
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('sellingPrice').hasError('minlength') && drugInventory.get('sellingPrice').touched">
+          Minimum of 1 number(s)
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="inventory" class="text-color">Stock Quantity</label>
+          <input type="number" min="0" class="form-control" formControlName="inventory" id="inventory" placeholder="Enter drug stock quantity">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('inventory').hasError('required') && drugInventory.get('inventory').touched">
+          Enter stock
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('inventory').hasError('minlength') && drugInventory.get('inventory').touched">
+          Minimum of 1 character
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="expiryDate" class="text-color">Expiry Date</label>
+          <input type="date" formControlName="expiryDate" placeholder="Select expiry date"  id="expiryDate" class="form-control">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('expiryDate').hasError('required') && drugInventory.get('expiryDate').touched">
+          Select expiry date no less than today's date
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="manufacturer" class="text-color">Manufacturer</label>
+          <input type="text" class="form-control" formControlName="manufacturer" id="manufacturer" placeholder="Enter name of manufacturer">
+        </div>
+        <div class="error alert-warning" *ngIf="drugInventory.get('manufacturer').hasError('required') && drugInventory.get('manufacturer').touched">
+          Name of manufacturer required
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="notes" class="text-color">Drug Notes</label>
+          <textarea name="notes" id="notes" class="form-control" formControlName="notes" placeholder="Drug notes (optional)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row button-margin">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <button type="submit" [disabled]="drugInventory.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+      </div>
+      <div class="col-md-4">
+        <button [routerLink]="['/main-dashboard/drug-inv-list']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </form>
+</div>

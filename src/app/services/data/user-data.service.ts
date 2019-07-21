@@ -61,7 +61,15 @@ export class UserDataService {
     return this.http.get<DrugInventory[]>(`${API_URL}/drug-inventory/getAllDrugs`, {headers});
   }
 
-  addDrugInventoryData(drugInventory: DrugInventory) {
+  getDrugInventoryById(id: number) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<DrugInventoryData>(`${API_URL}/drug-inventory/getDrugInventory/${id}`, {headers});
+  }
+
+  addDrugInventoryData(drugInventory: DrugInventoryData) {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });
@@ -69,6 +77,15 @@ export class UserDataService {
   }
 
   updateDrugInventory(drugInventory: DrugInventory) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+
+    return this.http.patch<DrugInventoryData>(`${API_URL}/drug-inventory/updateDrugInv`, drugInventory, {headers});
+
+  }
+
+  updateDrugInventoryData(drugInventory: DrugInventoryData) {
     const headers = new HttpHeaders({
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });

@@ -48,11 +48,11 @@ export class PharmacyComponent implements OnInit {
   private drugName: string;
   private unitPrice: number;
   private sellingPrice: number;
-  private inventory: number;
   private expiryDate: Date;
   private quantity: number;
   private manufacturer: string;
   private notes: string;
+  private inventoryNumber: number;
 
 
   constructor(private savePharmacyData: UserDataService,
@@ -210,11 +210,11 @@ export class PharmacyComponent implements OnInit {
       this.expiryDate = this.updateDrugInventory.expiryDate;
       this.notes = this.updateDrugInventory.notes;
       this.quantity = value.quantity;
-      this.inventory = Number(this.updateDrugInventory.inventory) - Number(value.quantity);
+      this.inventoryNumber = Number(this.updateDrugInventory.inventory) - Number(value.quantity);
       this.manufacturer = this.updateDrugInventory.manufacturer;
       this.addDrugInventory = new DrugInventory(
         this.id, this.barCodeId, this.drugName, this.unitPrice, this.sellingPrice,
-        this.inventory, this.expiryDate, this.quantity, this.manufacturer, this.notes
+        this.inventoryNumber, this.expiryDate, this.quantity, this.manufacturer, this.notes
       );
     this.tempDrugInventory.push(this.addDrugInventory);
     this.drugInventory.reset();

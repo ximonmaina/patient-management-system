@@ -6,7 +6,7 @@ export class DrugInventoryData {
     public unitPrice: number,
     public sellingPrice: number,
     public inventory: number,
-    public expiryDate: Date,
+    public expiryDate: string,
     public manufacturer: string,
     public notes: string
 
