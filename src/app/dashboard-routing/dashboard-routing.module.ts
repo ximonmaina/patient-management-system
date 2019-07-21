@@ -17,6 +17,7 @@ import {PharmacyComponent} from '../pharmacy/pharmacy/pharmacy.component';
 import {DrugInventoryListComponent} from '../pharmacy/drug-inventory-list/drug-inventory-list.component';
 import {AddNewDrugToInventoryComponent} from '../pharmacy/add-new-drug-to-inventory/add-new-drug-to-inventory.component';
 import {UpdateDrugComponent} from '../pharmacy/update-drug/update-drug.component';
+import {UpdatePatientComponent} from '../admin-dashboard/update-patient/update-patient.component';
 
 const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
@@ -25,6 +26,7 @@ const routes: Routes = [
     {path: 'patient-list', component: PatientListComponent, canActivate: [RouteGuardService]},
     {path: 'add-patient', component: AddPatientComponent, canActivate: [RouteGuardService]},
     {path: 'add-triage/:id', component: AddPatientTriageComponent, canActivate: [RouteGuardService]},
+    {path: 'update-patient/:id', component: UpdatePatientComponent, canActivate: [RouteGuardService]},
     {path: 'main-treatment', component: MainTreatmentComponent, canActivate: [RouteGuardService],
       children: [
         {path: 'treatment', component: TreatmentComponent, canActivate: [RouteGuardService]},

@@ -1,0 +1,151 @@
+<div class="container-fluid pt-bg">
+  <div class="row">
+    <div class="col-md-12 bg-light">
+      <span><h3 style="color: #7f7f7f">Register Patient</h3></span>
+    </div>
+  </div>
+  <form (ngSubmit)="savePatient(patient)" [formGroup]="patient" class="margin-bottom">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color" for="patientFirstName">First Name*</label>
+          <input type="text" formControlName="patientFirstName" class="form-control" id="patientFirstName" aria-describedby="patientFirstNameHelp" placeholder="Enter First Name">
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientFirstName').hasError('required') && patient.get('patientFirstName').touched">
+          First Name required
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientFirstName').hasError('minlength') && patient.get('patientFirstName').touched">
+          Minimum of 2 characters
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color" for="patientLastName">Last Name*</label>
+          <input type="text" formControlName="patientLastName" class="form-control" id="patientLastName" aria-describedby="patientLastNameHelp" placeholder="Enter First Name">
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientLastName').hasError('required') && patient.get('patientLastName').touched">
+          Last Name required
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientLastName').hasError('minlength') && patient.get('patientLastName').touched">
+          Minimum of 2 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="text-color" for="patientMiddleName">Middle Name*</label>
+          <input type="text" formControlName="patientMiddleName" class="form-control" aria-describedby="patientMiddleNameHelp" placeholder="Enter Middle Name" id="patientMiddleName">
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientMiddleName').hasError('required') && patient.get('patientMiddleName').touched">
+          Middle Name required
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientMiddleName').hasError('minlength') && patient.get('patientMiddleName').touched">
+          Minimum of 2 characters
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patientIdentityNumber" class="text-color">Identity No</label>
+          <input type="number" formControlName="patientIdentityNumber" class="form-control" aria-describedby="patientIdentityNumber" placeholder=" Enter Identity Number" id="patientIdentityNumber" min="0" max="99999999">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="date-picker-example" class="text-color">Date of Birth*</label>
+          <input placeholder="Selected date" type="date" id="date-picker-example" class="form-control datepicker" formControlName="patientDateOfBirth">
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientDateOfBirth').hasError('required') && patient.get('patientDateOfBirth').touched">
+          Date of Birth required
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patientAge" class="text-color">Age*</label>
+          <input type="number" formControlName="patientAge" id="patientAge" placeholder="Enter Age" class="form-control" min="0" max="200">
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientAge').hasError('required') && patient.get('patientAge').touched">
+          Patient Age required
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patientGender" class="text-color">Gender*</label>
+          <select  class="browser-default custom-select" name="patientGender" id="patientGender" formControlName="patientGender">
+            <option selected disabled>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientGender').hasError('required') && patient.get('patientGender').touched">
+          Patient gender required
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="patientCountry" class="text-color">Country</label>
+        <input type="text" formControlName="patientCountry" id="patientCountry" class="form-control" placeholder="Enter country name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patientCounty" class="text-color">County</label>
+          <input type="text" formControlName="patientCounty" id="patientCounty" class="form-control" placeholder="Enter county name">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patientPhoneNumber" class="text-color">Phone Number*</label>
+          <input type="number" formControlName="patientPhoneNumber" id="patientPhoneNumber" placeholder="Enter phone number" class="form-control">
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientPhoneNumber').hasError('required') && patient.get('patientPhoneNumber').touched">
+          Phone Number required
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patientAddress" class="text-color">Address</label>
+          <input type="text" class="form-control" formControlName="patientAddress" id="patientAddress" placeholder="Enter address">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patientEmailAddress" class="text-color">Email Address</label>
+          <input type="email" class="form-control" formControlName="patientEmailAddress" placeholder="Enter email address" id="patientEmailAddress">
+        </div>
+        <div class="error alert-warning" *ngIf="patient.get('patientEmailAddress').hasError('email') && patient.get('patientEmailAddress').touched">
+          Email must be a valid email address
+        </div>
+      </div>
+    </div>
+
+    <div class="row button-margin">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <button type="submit" [disabled]="patient.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
+      </div>
+      <div class="col-md-4">
+        <button [routerLink]="['/main-dashboard/patient-list']" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </form>
+  <div class="row margin-bottom-2">
+
+  </div>
+
+</div>
+

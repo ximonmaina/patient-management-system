@@ -17,10 +17,10 @@
           <th class="th-sm">DoB</th>
           <th class="th-sm">Age</th>
           <th class="th-sm">Gender</th>
-          <th class="th-sm">Country</th>
           <th class="th-sm">County</th>
           <th class="th-sm">Tel. Number</th>
           <th class="th-sm">Address</th>
+          <th class="th-sm"></th>
           <th class="th-sm"></th>
         </tr>
         </thead>
@@ -33,10 +33,10 @@
             <td>{{patient.patientDateOfBirth | date :'yyyy-MM-dd'}}</td>
             <td>{{patient.patientAge}}</td>
             <td>{{patient.patientGender}}</td>
-            <td>{{patient.patientCountry}}</td>
             <td>{{patient.patientCounty}}</td>
             <td>{{patient.patientPhoneNumber}}</td>
             <td>{{patient.patientAddress}}</td>
+            <td><button  (click)="updatePatient(patient.id)" class="btn btn-success">Update</button></td>
             <td><button (click)="getPatientId(patient.id)" type="button" class="btn btn-success">Add Triage</button></td>
         </tr>
         </tbody>

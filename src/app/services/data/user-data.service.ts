@@ -17,6 +17,7 @@ import {DrugInventory} from '../../domainobjects/drug-inventory';
 import {PharmacyData} from '../../domainobjects/pharmacy-data';
 import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
 import {DrugInventoryData} from '../../domainobjects/drug-inventory-data';
+import {UpdatePatientData} from '../../domainobjects/update-patient-data';
 
 @Injectable({
   providedIn: 'root'
@@ -173,7 +174,14 @@ export class UserDataService {
    }
 
 
+  updatePatientData(patientData: UpdatePatientData) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
 
+    return this.http.patch<UpdatePatientData>(`${API_URL}/patient/updatepatient`, patientData, {headers});
+
+  }
    addPatient(patient: PatientData) {
      const headers = new HttpHeaders({
        Authorization: this.jwtAuthenticationService.getAuthenticatedToken()

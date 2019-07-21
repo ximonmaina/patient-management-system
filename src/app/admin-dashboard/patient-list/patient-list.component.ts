@@ -43,5 +43,7 @@ export class PatientListComponent implements OnInit {
   }
 
 
-
+  updatePatient(id: number) {
+    this.route.navigate(['/main-dashboard/update-patient', id]);
+  }
 }
