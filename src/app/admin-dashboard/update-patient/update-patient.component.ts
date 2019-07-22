@@ -69,7 +69,7 @@ export class UpdatePatientComponent implements OnInit {
     delete this.patientData['PharmacyData'];
     this.savePatientData.updatePatientData(this.patientData).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.router.navigate(['/main-dashboard/patient-list']);
       },
       error => {

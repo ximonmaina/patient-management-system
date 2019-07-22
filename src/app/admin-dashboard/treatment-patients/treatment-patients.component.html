@@ -1,0 +1,54 @@
+<div class="container-fluid pt-bg">
+  <div class="row">
+    <div class="col-md-12 bg-light">
+      <span class="txt-position"><h3 style="color: #7f7f7f">Patient(s) in Queue</h3></span>
+    </div>
+  </div>
+
+  <div class="row"  style="margin-bottom: 300px; ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="align-content-center" style="margin-top: 10px;">
+        <table id="dtMaterialDesignExample" class="table table-responsive-lg  table-margin table-striped" cellspacing="0" width="100%">
+          <thead class="thead-light">
+          <tr>
+            <th class="th-sm">First Name</th>
+            <th class="th-sm">Middle Name</th>
+            <th class="th-sm">Last Name</th>
+            <th class="th-sm">Age</th>
+            <th class="th-sm">Gender</th>
+            <th class="th-sm">DoB</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let treatmentPatient of treatmentPatients">
+            <td *ngFor="let patient of treatmentPatient.patient">
+              {{patient.patientFirstName}}
+            </td>
+            <td *ngFor="let patient of treatmentPatient.patient">
+              {{patient.patientMiddleName}}
+            </td>
+            <td *ngFor="let patient of treatmentPatient.patient">
+              {{patient.patientLastName}}
+            </td>
+            <td *ngFor="let patient of treatmentPatient.patient">
+              {{patient.patientAge}}
+            </td>
+            <td *ngFor="let patient of treatmentPatient.patient">
+              {{patient.patientGender}}
+            </td>
+            <td *ngFor="let patient of treatmentPatient.patient">
+              {{patient.patientDateOfBirth | date: 'fullDate'}}
+            </td>
+            <td><button (click)="goToTreatment(treatmentPatient.id)" [disabled]="treatmentPatient.status" class="btn btn-block btn-info">Process</button></td>
+            <td><button (click)="removePatient(treatmentPatient.id)" [disabled]="treatmentPatient.status"  class="btn btn-block btn-danger">Remove</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

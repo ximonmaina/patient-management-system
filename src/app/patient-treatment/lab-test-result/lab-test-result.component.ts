@@ -9,6 +9,8 @@ import {LabRequestData} from '../../domainobjects/lab-request.data';
 import {delay} from 'rxjs/operators';
 import {PatientId} from '../../domainobjects/patient-id';
 import {LabResultTwoData} from '../../domainobjects/lab-result-two.data';
+import {TreatmentPatients} from '../../domainobjects/treatment-patients';
+import {PatientTreatmentIdService} from '../../services/patient-treatment-id.service';
 
 @Component({
   selector: 'app-lab-test-result',
@@ -27,7 +29,15 @@ export class LabTestResultComponent implements OnInit {
   patientLabResultWithName: LabResultTwoData[];
   s: LabResultTwoData[] = [];
 
+  // patients in queue
+  patientTreatmentId: number;
+  patientTreatments: TreatmentPatients;
+  public getPatientIdFromTreatment: PatientData[];
+  idForPatientInQueue: number;
+
   constructor(private getLabData: UserDataService,
+              private treatmentPatientId: PatientTreatmentIdService,
+              private getPatientTreatments: UserDataService,
               private getNameOfUser: UsernameService,
               private router: Router,
               private formBuidler: FormBuilder,
@@ -35,10 +45,33 @@ export class LabTestResultComponent implements OnInit {
 
   ngOnInit() {
     this.getLabResults();
+    this.treatmentPatientId.currentIdValue.subscribe(
+      data => {
+        this.patientTreatmentId = data;
+        // console.log('Patient id');
+        // console.log(this.patientTreatmentId);
+      }
+    );
+    this.getPatientIdFromQueue();
     this.getAllPatients();
     this.labResult = this.formBuidler.group({
       patient: ['', [Validators.required]]
     });
+  }
+
+  // Patient Treatments
+  getPatientIdFromQueue() {
+    this.getPatientTreatments.getOneTreatmentPatient(this.patientTreatmentId).subscribe(
+      data => {
+        this.patientTreatments = data;
+        this.getPatientIdFromTreatment = this.patientTreatments.patient;
+        for (const patient of this.getPatientIdFromTreatment) {
+          this.idForPatientInQueue = patient.id;
+        }
+        this.labResult.patchValue({patient: this.idForPatientInQueue});
+        // console.log(this.idForPatientInQueue);
+      }
+    );
   }
 
   getLabResults() {
@@ -76,7 +109,7 @@ export class LabTestResultComponent implements OnInit {
         this.patientLabDataResult = data;
         this.patientName = this.patientLabDataResult['patientFirstName'] + ' ' + this.patientLabDataResult['patientLastName'];
         this.patientLabResultWithName = this.patientLabDataResult.labData;
-        for (let lab of this.patientLabResultWithName) {
+        for (const lab of this.patientLabResultWithName) {
                 console.log(lab);
                 lab['patientName'] = this.patientName;
                 this.s.push(lab);

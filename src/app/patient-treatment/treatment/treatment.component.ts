@@ -15,6 +15,9 @@ import {DrugPrescriptionData} from '../../domainobjects/drug-prescription.data';
 import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
 import {PharmacyData} from '../../domainobjects/pharmacy-data';
 import {PharmacyTemp} from '../../domainobjects/pharmacy-temp';
+import {PatientTreatmentIdService} from '../../services/patient-treatment-id.service';
+import {TreatmentPatients} from '../../domainobjects/treatment-patients';
+import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
 interface Event {
   name: string;
   value: any;
@@ -28,10 +31,10 @@ interface Event {
 })
 export class TreatmentComponent implements OnInit {
 
-   diagnosisDate =  Date.now();
-   doctorName: string;
-   patientTriageData: PatientTriageData[];
-   getData: TriageData[];
+  diagnosisDate =  Date.now();
+  doctorName: string;
+  patientTriageData: PatientTriageData[];
+  getData: TriageData[];
   events: Event[] = [];
   modalState = false;
   patientName: string;
@@ -58,7 +61,21 @@ export class TreatmentComponent implements OnInit {
   private patient: number;
   private staffName: string;
 
+  // patients in queue
+  patientTreatmentId: number;
+  patientTreatments: TreatmentPatients;
+  public getPatientIdFromTreatment: PatientData[];
+  idForPatientInQueue: number;
+  updateTreatmentPatient: TreatmentPatientsData;
+  getTreatmentPatient: TreatmentPatients;
+  status: boolean;
+  testResult: boolean;
+  nameOfDoctorPatientTreatment: string;
+
   constructor(private saveTreatmentData: UserDataService,
+              private patientTreatmentIdUpdate: PatientTreatmentIdService,
+              private treatmentPatientId: PatientTreatmentIdService,
+              private getPatientTreatments: UserDataService,
               private saveDrugPrescription: UserDataService,
               private savePharmacyData: UserDataService,
               private getPatients: UserDataService,
@@ -72,9 +89,18 @@ export class TreatmentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllPatients();
+
     this.getStaffName();
     this.getDrugs();
+    this.treatmentPatientId.currentIdValue.subscribe(
+      data => {
+        this.patientTreatmentId = data;
+        // console.log('Patient id');
+        // console.log(this.patientTreatmentId);
+      }
+    );
+
+    this.getPatientIdFromQueue();
     this.treatment = this.formBuilder.group({
       disease: ['', [Validators.required, Validators.minLength(5)]],
       caseNotes: ['', [Validators.required, Validators.minLength(5)]],
@@ -89,6 +115,22 @@ export class TreatmentComponent implements OnInit {
     });
 
 
+    this.getAllPatients();
+  }
+
+  // Patient Treatments
+  getPatientIdFromQueue() {
+    this.getPatientTreatments.getOneTreatmentPatient(this.patientTreatmentId).subscribe(
+      data => {
+        this.patientTreatments = data;
+        this.getPatientIdFromTreatment = this.patientTreatments.patient;
+        for (const patient of this.getPatientIdFromTreatment) {
+          this.idForPatientInQueue = patient.id;
+        }
+        this.treatment.patchValue({patient: this.idForPatientInQueue});
+        // console.log(this.idForPatientInQueue);
+      }
+    );
   }
 
   addDrugPrescription({value, valid}: {value: PharmacyTemp, valid: boolean}) {
@@ -99,20 +141,20 @@ export class TreatmentComponent implements OnInit {
     this.commitPharmacyData = value;
     this.finalDrugPrescriptionValue = this.savePatientDrugPrescription;
     this.drugPrescription = this.finalDrugPrescriptionValue;
-      this.dateOfPrescription = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
-      this.nameOfDoctor = this.doctorName;
-      this.staffName = this.doctorName;
-      this.patient = this.patientIdTwo;
+    this.dateOfPrescription = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
+    this.nameOfDoctor = this.doctorName;
+    this.staffName = this.doctorName;
+    this.patient = this.patientIdTwo;
 
-      // pharmacy data
+    // pharmacy data
     this.commitPharmacyData = new PharmacyData(
       0,
       this.drugPrescription,
-    this.dateOfPrescription,
-    this.nameOfDoctor,
-    this.staffName,
-    this.patient
-  );
+      this.dateOfPrescription,
+      this.nameOfDoctor,
+      this.staffName,
+      this.patient
+    );
 
     // drug prescription data
     this.commitDrugPrescriptions = new DrugPrescriptionSave(
@@ -211,7 +253,8 @@ export class TreatmentComponent implements OnInit {
     this.treatmentData = value;
     // console.log(this.treatmentData.patient);
     this.patientId = this.treatmentData.patient;
-    console.log(this.patientId);
+    // console.log("triage patient id");
+    // console.log(this.treatmentData.patient);
 
 
     this.getPatients.getPatientTriageData(this.treatmentData.patient).subscribe(
@@ -239,7 +282,7 @@ export class TreatmentComponent implements OnInit {
     this.events.push({ name: '(add)', value: $event });
     console.log('hello');
     for (const event of this.events)  {
-        console.log(event);
+      console.log(event);
     }
 
   }
@@ -258,9 +301,40 @@ export class TreatmentComponent implements OnInit {
   }
 
   saveTreatment({value, valid}: {value: TreatmentData, valid: boolean}) {
-      console.log(value);
+    console.log(value);
   }
 
 
+  goToPatientList() {
+    this.getPatientTreatments.getOneTreatmentPatient(this.idForPatientInQueue).subscribe(
+      data => {
+        this.getTreatmentPatient = data;
+        for (const patient of this.getTreatmentPatient.patient) {
+          this.patientId = patient.id;
+        }
 
+        this.patientTreatmentId = this.getTreatmentPatient.id;
+        this.status = false;
+        this.testResult = this.getTreatmentPatient.testResult;
+        this.nameOfDoctorPatientTreatment = this.getTreatmentPatient.nameOfDoctor;
+        this.updateTreatmentPatient = new TreatmentPatientsData(
+          this.patientTreatmentId, this.status, this.testResult, this.nameOfDoctorPatientTreatment, this.patientId
+        );
+        this.updatePatientTreatment(this.updateTreatmentPatient);
+        this.router.navigate(['/main-dashboard/treatment-patients']);
+      }
+    );
+  }
+
+  updatePatientTreatment(treatmentPatient: TreatmentPatientsData) {
+    this.getPatientTreatments.updateTreatmentPatients(treatmentPatient).subscribe(
+      response => {
+        // console.log('Updated successfully');
+        // console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

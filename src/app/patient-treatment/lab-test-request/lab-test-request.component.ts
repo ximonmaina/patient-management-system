@@ -7,6 +7,8 @@ import {DatePipe} from '@angular/common';
 import {LabRequestData} from '../../domainobjects/lab-request.data';
 import {PatientData} from '../../domainobjects/patient.data';
 import {delay, filter, flatMap, map, tap} from 'rxjs/operators';
+import {TreatmentPatients} from '../../domainobjects/treatment-patients';
+import {PatientTreatmentIdService} from '../../services/patient-treatment-id.service';
 
 @Component({
   selector: 'app-lab-test-request',
@@ -25,7 +27,15 @@ export class LabTestRequestComponent implements OnInit {
   patientName: string;
   message: string;
 
+  // patients in queue
+  patientTreatmentId: number;
+  patientTreatments: TreatmentPatients;
+  public getPatientIdFromTreatment: PatientData[];
+  idForPatientInQueue: number;
+
   constructor(private saveLabReqData: UserDataService,
+              private treatmentPatientId: PatientTreatmentIdService,
+              private getPatientTreatments: UserDataService,
               private  getAllLabData: UserDataService,
                 private deleteSelectedLabReq: UserDataService,
                 private getPatients: UserDataService,
@@ -37,6 +47,14 @@ export class LabTestRequestComponent implements OnInit {
 
   ngOnInit() {
     this.getLabRequests();
+    this.treatmentPatientId.currentIdValue.subscribe(
+      data => {
+        this.patientTreatmentId = data;
+        // console.log('Patient id');
+        // console.log(this.patientTreatmentId);
+      }
+    );
+    this.getPatientIdFromQueue();
     this.getAllPatients();
     this.getStaffName();
 
@@ -47,6 +65,21 @@ export class LabTestRequestComponent implements OnInit {
       // doctorName: [{value: this.staffName, disable: true}],
       patient: ['', [Validators.required]]
     });
+  }
+
+  // Patient Treatments
+  getPatientIdFromQueue() {
+    this.getPatientTreatments.getOneTreatmentPatient(this.patientTreatmentId).subscribe(
+      data => {
+        this.patientTreatments = data;
+        this.getPatientIdFromTreatment = this.patientTreatments.patient;
+        for (const patient of this.getPatientIdFromTreatment) {
+          this.idForPatientInQueue = patient.id;
+        }
+        this.labRequest.patchValue({patient: this.idForPatientInQueue});
+        // console.log(this.idForPatientInQueue);
+      }
+    );
   }
   getLabRequests() {
     return this.getAllLabData.getLabData()

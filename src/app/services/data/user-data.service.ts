@@ -18,6 +18,8 @@ import {PharmacyData} from '../../domainobjects/pharmacy-data';
 import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
 import {DrugInventoryData} from '../../domainobjects/drug-inventory-data';
 import {UpdatePatientData} from '../../domainobjects/update-patient-data';
+import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
+import {TreatmentPatients} from '../../domainobjects/treatment-patients';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,45 @@ export class UserDataService {
 
   constructor(private http: HttpClient,
              private jwtAuthenticationService: JwtAuthenticationService) { }
+
+  addTreatmentPatientsData(treatmentPatientsData: TreatmentPatientsData) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.post(`${API_URL}/treatmentpatients/addTreatmentPatients`, treatmentPatientsData, {headers});
+  }
+
+  getTreatmentPatients() {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<TreatmentPatients[]>(`${API_URL}/treatmentpatients/getAllTreatmentPatients`, {headers});
+  }
+
+  getOneTreatmentPatient(id) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<TreatmentPatients>(`${API_URL}/treatmentpatients/getTreatmentPatients/${id}`, {headers});
+  }
+
+  updateTreatmentPatients(treatmentPatientsData: TreatmentPatientsData) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+
+    return this.http.patch<DrugInventoryData>(`${API_URL}/treatmentpatients/updateTreatmentPatients`, treatmentPatientsData, {headers});
+
+  }
+
+  deleteTreatmentPatients(id) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.delete(`${API_URL}/treatmentpatients/deleteTreatmentPatients/${id}`, {headers});
+  }
 
   addDrugPrescriptionData(drugPrescriptionSave: DrugPrescriptionSave) {
     const headers = new HttpHeaders({

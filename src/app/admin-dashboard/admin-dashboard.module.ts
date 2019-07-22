@@ -9,10 +9,11 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { AddPatientTriageComponent } from './add-patient-triage/add-patient-triage.component';
 import { UpdatePatientComponent } from './update-patient/update-patient.component';
+import { TreatmentPatientsComponent } from './treatment-patients/treatment-patients.component';
 
 
 @NgModule({
-  declarations: [MainDashboardComponent, WelcomeComponent, PatientListComponent, AddPatientComponent, AddPatientTriageComponent, UpdatePatientComponent],
+  declarations: [MainDashboardComponent, WelcomeComponent, PatientListComponent, AddPatientComponent, AddPatientTriageComponent, UpdatePatientComponent, TreatmentPatientsComponent],
   imports: [
     CommonModule,
     RouterModule,

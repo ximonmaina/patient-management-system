@@ -5,6 +5,7 @@ import {TriageData} from '../../domainobjects/triage.data.';
 import {UserDataService} from '../../services/data/user-data.service';
 import {UsernameService} from '../../services/username.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
 
 @Component({
   selector: 'app-add-patient-triage',
@@ -19,8 +20,11 @@ export class AddPatientTriageComponent implements OnInit {
   clinicStaffName: string;
   patientList: PatientData[];
   id: number;
+  patientId: number;
+  patientTreatment: TreatmentPatientsData;
 
   constructor(private patients: UserDataService,
+              private addPatientToTreatmentQueue: UserDataService,
               private saveTriageInfo: UserDataService,
               private formBuidler: FormBuilder,
               private getNameOfUser: UsernameService,
@@ -58,11 +62,28 @@ export class AddPatientTriageComponent implements OnInit {
   }
 
   getPatientId(id) {
+
     this.patients.getPatientById(id).subscribe(
       data => {
         // console.log(data);
         this.findPatient = data;
+        this.patientId = this.findPatient.id;
+        this.patientTreatment = new TreatmentPatientsData(
+          0, false, false, '', this.patientId
+        );
         this.patientName = data['patientFirstName'] + ' ' + data['patientMiddleName'] + ' ' + data['patientLastName'];
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  addPatientToQueue(patient: TreatmentPatientsData) {
+    console.log(this.patientTreatment);
+    this.addPatientToTreatmentQueue.addTreatmentPatientsData(patient).subscribe(
+      response => {
+            console.log('saved successfully');
       },
       error => {
         console.log(error);
@@ -84,7 +105,9 @@ export class AddPatientTriageComponent implements OnInit {
       response => {
         // console.log('triage info saved successfully');
         // console.log(response);
+        this.addPatientToQueue(this.patientTreatment);
         this.router.navigate(['/main-dashboard/patient-list']);
+
       },
       error => {
         console.log(error);
