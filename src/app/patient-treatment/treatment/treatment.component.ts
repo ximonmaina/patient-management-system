@@ -288,7 +288,7 @@ export class TreatmentComponent implements OnInit {
   }
 
   getAllPatients() {
-    return this.getPatients.getPatients().pipe(delay(500)).subscribe(
+    return this.getPatients.getPatients().subscribe(
       data => {
         this.allPatients = data;
         this.patients = [...this.allPatients];
