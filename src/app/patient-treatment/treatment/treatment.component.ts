@@ -5,13 +5,10 @@ import {UserDataService} from '../../services/data/user-data.service';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {PatientData} from '../../domainobjects/patient.data';
-import {ReplaySubject, Subject} from 'rxjs';
-import {debounceTime, delay, filter, map, takeUntil, tap} from 'rxjs/operators';
 import {UsernameService} from '../../services/username.service';
 import {PatientTriageData} from '../../domainobjects/patient-triage.data';
 import {TriageData} from '../../domainobjects/triage.data.';
 import {DrugInventory} from '../../domainobjects/drug-inventory';
-import {DrugPrescriptionData} from '../../domainobjects/drug-prescription.data';
 import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
 import {PharmacyData} from '../../domainobjects/pharmacy-data';
 import {PharmacyTemp} from '../../domainobjects/pharmacy-temp';
@@ -31,6 +28,7 @@ interface Event {
 })
 export class TreatmentComponent implements OnInit {
 
+  // treatment data
   diagnosisDate =  Date.now();
   doctorName: string;
   patientTriageData: PatientTriageData[];
@@ -40,6 +38,7 @@ export class TreatmentComponent implements OnInit {
   patientName: string;
   patientId = 0;
   patientIdTwo = 0;
+  savePatientTreatmentData: TreatmentData;
   treatmentData: TreatmentData;
   treatment: FormGroup;
 
@@ -84,7 +83,8 @@ export class TreatmentComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private getAllDrugs: UserDataService,
-              private datePipe: DatePipe) { }
+              private datePipe: DatePipe,
+              private deletePatientFromQueue: UserDataService) { }
 
 
 
@@ -301,7 +301,28 @@ export class TreatmentComponent implements OnInit {
   }
 
   saveTreatment({value, valid}: {value: TreatmentData, valid: boolean}) {
-    console.log(value);
+    // console.log(value);
+    this.savePatientTreatmentData = value;
+    this.savePatientTreatmentData.staffName = this.doctorName;
+    this.savePatientTreatmentData.dateOfDiagnosis = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
+    console.log(this.savePatientTreatmentData);
+    this.saveTreatmentData.addPatientTreatmentData(this.savePatientTreatmentData).subscribe(
+      response => {
+        this.deleteTreatmentPatients(this.patientTreatmentId);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  deleteTreatmentPatients(treatmentPatients: number) {
+    this.deletePatientFromQueue.deleteTreatmentPatients(treatmentPatients).subscribe(
+      response => {
+        this.router.navigate(['/main-dashboard/treatment-patients']);
+      }
+    );
   }
 
 

@@ -1,8 +1,7 @@
 <div class="container-fluid pt-bg">
   <div class="row">
     <div class="col-md-12 bg-light">
-      <span class="txt-position"><h3 style="color: #7f7f7f">Patient(s) in Queue</h3></span>
-      <button class="btn  btn-success fl-bg"><i class="fas fa-poll"></i> <a [routerLink]="['/main-dashboard/patient-lab-results']" style="text-decoration: none; color: white; padding: 5px;">Lab Results</a></button>
+      <span class="txt-position"><h3 style="color: #7f7f7f">Patient(s) Lab Results</h3></span>
     </div>
   </div>
 
@@ -24,9 +23,9 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let treatmentPatient of treatmentPatients"  >
-            <td *ngFor="let patient of treatmentPatient.patient" >
-               {{patient.patientFirstName}}
+          <tr *ngFor="let treatmentPatient of treatmentPatients" >
+            <td *ngFor="let patient of treatmentPatient.patient">
+              {{patient.patientFirstName}}
             </td>
             <td *ngFor="let patient of treatmentPatient.patient">
               {{patient.patientMiddleName}}
@@ -43,8 +42,8 @@
             <td *ngFor="let patient of treatmentPatient.patient">
               {{patient.patientDateOfBirth | date: 'fullDate'}}
             </td>
-            <td><span *ngIf="treatmentPatient.nameOfDoctor">View</span><span *ngIf="!treatmentPatient.nameOfDoctor"><button (click)="goToTreatment(treatmentPatient.id)" [disabled]="treatmentPatient.status" class="btn btn-block btn-info">Process</button></span></td>
-            <td><span *ngIf="treatmentPatient.nameOfDoctor">Lab Results</span><span *ngIf="!treatmentPatient.nameOfDoctor"><button (click)="removePatient(treatmentPatient.id)" [disabled]="treatmentPatient.status"  class="btn btn-block btn-danger">Remove</button></span></td>
+            <td><span *ngIf="treatmentPatient.nameOfDoctor"><button (click)="goToTreatment(treatmentPatient.id)" [disabled]="treatmentPatient.status" class="btn btn-block btn-info">Process</button></span></td>
+            <td><span *ngIf="treatmentPatient.nameOfDoctor"><button (click)="removePatient(treatmentPatient.id)" [disabled]="treatmentPatient.status"  class="btn btn-block btn-danger">Remove</button></span></td>
           </tr>
           </tbody>
         </table>

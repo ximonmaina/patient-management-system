@@ -20,6 +20,7 @@ import {DrugInventoryData} from '../../domainobjects/drug-inventory-data';
 import {UpdatePatientData} from '../../domainobjects/update-patient-data';
 import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
 import {TreatmentPatients} from '../../domainobjects/treatment-patients';
+import {TreatmentData} from '../../domainobjects/treatment.data';
 
 @Injectable({
   providedIn: 'root'
@@ -296,6 +297,13 @@ export class UserDataService {
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });
     return this.http.delete(`${API_URL}/register/deleteuser/${id}`, {headers});
+  }
+
+  addPatientTreatmentData(treatment: TreatmentData) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    return this.http.post(`${API_URL}/treatment/addPatientTreatmentData`, treatment, {headers});
   }
 
   getAuthHeader() {

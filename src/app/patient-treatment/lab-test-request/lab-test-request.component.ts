@@ -9,6 +9,7 @@ import {PatientData} from '../../domainobjects/patient.data';
 import {delay, filter, flatMap, map, tap} from 'rxjs/operators';
 import {TreatmentPatients} from '../../domainobjects/treatment-patients';
 import {PatientTreatmentIdService} from '../../services/patient-treatment-id.service';
+import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
 
 @Component({
   selector: 'app-lab-test-request',
@@ -27,6 +28,16 @@ export class LabTestRequestComponent implements OnInit {
   patientName: string;
   message: string;
 
+  // Updating  Treatment Patients
+  patientId: number;
+  status: boolean;
+  testResult: boolean;
+  nameOfDoctor: string;
+  getTreatmentPatient: TreatmentPatients;
+  updateTreatmentPatient: TreatmentPatientsData;
+
+
+
   // patients in queue
   patientTreatmentId: number;
   patientTreatments: TreatmentPatients;
@@ -43,7 +54,9 @@ export class LabTestRequestComponent implements OnInit {
                 private getUserDataByUsername: UserDataService,
                 private router: Router,
                 private formBuilder: FormBuilder,
-                private datePipe: DatePipe) { }
+                private datePipe: DatePipe,
+              private patientTreatmentIdUpdate: PatientTreatmentIdService,
+              private getTreatmentPatients: UserDataService) { }
 
   ngOnInit() {
     this.getLabRequests();
@@ -65,6 +78,43 @@ export class LabTestRequestComponent implements OnInit {
       // doctorName: [{value: this.staffName, disable: true}],
       patient: ['', [Validators.required]]
     });
+  }
+
+  // Updating patient treatment
+
+  updateTreatmentPatients() {
+    if (this.patientTreatmentId !== undefined) {
+      this.getTreatmentPatients.getOneTreatmentPatient(this.patientTreatmentId).subscribe(
+        data => {
+          this.getTreatmentPatient = data;
+          for (const patient of this.getTreatmentPatient.patient) {
+            this.patientId = patient.id;
+          }
+          this.patientTreatmentId = this.getTreatmentPatient.id;
+          this.status = false;
+          this.testResult = this.getTreatmentPatient.testResult;
+          this.nameOfDoctor = this.staffName;
+          this.updateTreatmentPatient = new TreatmentPatientsData(
+            this.patientTreatmentId, this.status, this.testResult, this.nameOfDoctor, this.patientId
+          );
+          this.updatePatientTreatment(this.updateTreatmentPatient);
+          console.log('Treatment patient updated successfully');
+        }
+      );
+
+    }
+  }
+
+  private updatePatientTreatment(updateTreatmentPatient: TreatmentPatientsData) {
+    this.getTreatmentPatients.updateTreatmentPatients(updateTreatmentPatient).subscribe(
+      response => {
+        this.router.navigate(['/main-dashboard/treatment-patients']);
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   // Patient Treatments
@@ -143,12 +193,13 @@ export class LabTestRequestComponent implements OnInit {
   saveLabRequest({value, valid}: {value: LabRequestData, valid: boolean}) {
     value.dateOfRequest = this.datePipe.transform(this.testRequestDate, 'yyyy-MM-dd');
     value.doctorName = this.staffName;
-    console.log(value);
+    // console.log(value);
     this.labRequestData = value;
-    console.log(this.labRequestData);
+    // console.log(this.labRequestData);
     this.saveLabReqData.addLabReqData(this.labRequestData).subscribe(
       response => {
         console.log(response);
+        this.updateTreatmentPatients();
       },
       error => {
         console.log(error);

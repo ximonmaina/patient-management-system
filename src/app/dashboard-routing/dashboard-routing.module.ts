@@ -19,6 +19,7 @@ import {AddNewDrugToInventoryComponent} from '../pharmacy/add-new-drug-to-invent
 import {UpdateDrugComponent} from '../pharmacy/update-drug/update-drug.component';
 import {UpdatePatientComponent} from '../admin-dashboard/update-patient/update-patient.component';
 import {TreatmentPatientsComponent} from '../admin-dashboard/treatment-patients/treatment-patients.component';
+import {PatientsLabResultsComponent} from '../admin-dashboard/patients-lab-results/patients-lab-results.component';
 
 const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
@@ -29,6 +30,7 @@ const routes: Routes = [
     {path: 'add-triage/:id', component: AddPatientTriageComponent, canActivate: [RouteGuardService]},
     {path: 'update-patient/:id', component: UpdatePatientComponent, canActivate: [RouteGuardService]},
     {path: 'treatment-patients', component: TreatmentPatientsComponent, canActivate: [RouteGuardService] },
+    {path: 'patient-lab-results', component: PatientsLabResultsComponent, canActivate: [RouteGuardService]},
     {path: 'main-treatment', component: MainTreatmentComponent, canActivate: [RouteGuardService],
       children: [
         {path: 'treatment', component: TreatmentComponent, canActivate: [RouteGuardService]},

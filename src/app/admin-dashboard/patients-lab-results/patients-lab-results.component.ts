@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {TreatmentPatients} from '../../domainobjects/treatment-patients';
-import {UserDataService} from '../../services/data/user-data.service';
-import {Router} from '@angular/router';
-import {PatientTreatmentIdService} from '../../services/patient-treatment-id.service';
 import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
-import {delay} from 'rxjs/operators';
+import {UserDataService} from '../../services/data/user-data.service';
+import {PatientTreatmentIdService} from '../../services/patient-treatment-id.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-treatment-patients',
-  templateUrl: './treatment-patients.component.html',
-  styleUrls: ['./treatment-patients.component.css']
+  selector: 'app-patients-lab-results',
+  templateUrl: './patients-lab-results.component.html',
+  styleUrls: ['./patients-lab-results.component.css']
 })
-export class TreatmentPatientsComponent implements OnInit {
-
+export class PatientsLabResultsComponent implements OnInit {
   treatmentPatients: TreatmentPatients[];
   id: number;
   updateTreatmentPatient: TreatmentPatientsData;
@@ -22,7 +20,6 @@ export class TreatmentPatientsComponent implements OnInit {
   status: boolean;
   testResult: boolean;
   nameOfDoctor: string;
-  doctorName: string;
 
   constructor(private getTreatmentPatients: UserDataService,
               private patientTreatmentIdUpdate: PatientTreatmentIdService,
@@ -32,19 +29,15 @@ export class TreatmentPatientsComponent implements OnInit {
     this.getAllTreatmentPatients();
   }
 
-
   getAllTreatmentPatients() {
-     return this.getTreatmentPatients.getTreatmentPatients().pipe(delay(500)).subscribe(
-       data => {
-         this.treatmentPatients = data;
-         // for (const tretpat of this.treatmentPatients) {
-         //   this.doctorName = th
-         // }
-       },
-       error => {
-         console.log(error);
-       }
-     );
+    return this.getTreatmentPatients.getTreatmentPatients().subscribe(
+      data => {
+        this.treatmentPatients = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   goToTreatment(id: number) {
@@ -71,23 +64,24 @@ export class TreatmentPatientsComponent implements OnInit {
   }
 
   updatePatientTreatment(treatmentPatient: TreatmentPatientsData) {
-     this.getTreatmentPatients.updateTreatmentPatients(treatmentPatient).subscribe(
-       response => {
-         // console.log('Updated successfully');
-         // console.log(response);
-         this.getAllTreatmentPatients();
-       },
-       error => {
-         console.log(error);
-       }
-     );
+    this.getTreatmentPatients.updateTreatmentPatients(treatmentPatient).subscribe(
+      response => {
+        // console.log('Updated successfully');
+        // console.log(response);
+        this.getAllTreatmentPatients();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   removePatient(id: number) {
-     this.getTreatmentPatients.deleteTreatmentPatients(id).subscribe(
-       response => {
-         this.getAllTreatmentPatients();
-       }
-     );
+    this.getTreatmentPatients.deleteTreatmentPatients(id).subscribe(
+      response => {
+        this.getAllTreatmentPatients();
+      }
+    );
   }
+
 }
