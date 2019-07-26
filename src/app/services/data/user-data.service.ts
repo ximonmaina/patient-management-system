@@ -21,6 +21,7 @@ import {UpdatePatientData} from '../../domainobjects/update-patient-data';
 import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
 import {TreatmentPatients} from '../../domainobjects/treatment-patients';
 import {TreatmentData} from '../../domainobjects/treatment.data';
+import {LabRequest} from '../../domainobjects/lab-request';
 
 @Injectable({
   providedIn: 'root'
@@ -198,6 +199,15 @@ export class UserDataService {
       Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
     });
     return this.http.post(`${API_URL}/labrequest/addLabTestReq`, labRequest, {headers});
+  }
+
+  updateLabReqData(labRequest: LabRequest) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+
+    return this.http.patch<LabRequest>(`${API_URL}/labrequest/updateLabTestRequest`, labRequest, {headers});
+
   }
 
   getLabData() {

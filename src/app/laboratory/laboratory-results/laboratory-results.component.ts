@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LabRequestData} from '../../domainobjects/lab-request.data';
 import {UsernameService} from '../../services/username.service';
 import {DatePipe} from '@angular/common';
+import {LabRequest} from '../../domainobjects/lab-request';
 
 @Component({
   selector: 'app-laboratory-results',
@@ -25,8 +26,19 @@ export class LaboratoryResultsComponent implements OnInit {
   doctorname: string;
   patientId: number;
 
+  // Lab Requests
+  labReqid: number;
+  testName: string;
+  dateOfRequest: string;
+  doctorName: string;
+  status: boolean;
+  patient: number;
+  updateLabReq: LabRequest;
+  labRequestData: LabRequestData;
 
   constructor(private saveLabResultsData: UserDataService,
+             private updateLabRequest: UserDataService,
+              private getLabReqs: UserDataService,
              private router: Router,
               private route: ActivatedRoute,
               private formBuidler: FormBuilder,
@@ -37,7 +49,7 @@ export class LaboratoryResultsComponent implements OnInit {
 
   ngOnInit() {
     this.labRequestsId = this.route.snapshot.params['id'];
-    // console.log(this.labRequestsId);
+    console.log(this.labRequestsId);
     this.getLabRequest(this.labRequestsId);
     this.getStaffName();
 
@@ -115,4 +127,37 @@ export class LaboratoryResultsComponent implements OnInit {
     );
   }
 
+  back() {
+    this.labReqid = this.labRequestsId;
+    console.log(this.labReqid);
+    this.getLabReqs.getLabRequestById(this.labReqid).subscribe(
+      data => {
+        this.labRequestData = data;
+        for (const patient of this.labRequestData.patient) {
+          this.patient = patient.id;
+        }
+        this.testName = this.labRequestData.testName;
+        this.dateOfRequest = this.labRequestData.dateOfRequest;
+        this.doctorName = this.labRequestData.doctorName;
+        this.status = false;
+        this.updateLabReq = new LabRequest(
+          this.labReqid, this.testName, this.dateOfRequest, this.doctorName, this.status, this.patient
+        );
+        this.updateOneLabRequest(this.updateLabReq);
+      }
+    );
+  }
+
+  updateOneLabRequest( labReq: LabRequest) {
+    console.log(labReq);
+    this.updateLabRequest.updateLabReqData(labReq).subscribe(
+      response => {
+        console.log(`updated successfully`);
+        this.router.navigate(['/main-dashboard/laboratory-requests']);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

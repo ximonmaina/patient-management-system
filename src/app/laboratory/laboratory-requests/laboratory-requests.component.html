@@ -21,16 +21,17 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let labReq of labRequests; let i = index">
+          <tr *ngFor="let labReq of labRequests">
               <td *ngFor="let patient of labReq.patient">
                 {{patient.patientFirstName}} {{patient.patientLastName}}
               </td>
             <td>{{labReq.testName}}</td>
             <td>{{labReq.dateOfRequest | date: 'fullDate'}}</td>
             <td>{{labReq.doctorName}}</td>
-            <td><button class="btn bg-success text-white" [disabled]="true">Active</button></td>
+            <td><span *ngIf="!labReq.status"><button class="btn bg-success text-white" [disabled]="true">InActive</button></span>
+              <span *ngIf="labReq.status"><button class="btn bg-success text-white" [disabled]="true">Active</button></span></td>
 <!--            <td class="bg-success text-white" style="border-radius: 5px; margin: 5px;"><span>Active</span></td>-->
-            <td><button (click)="goToLab(i,labReq.id)" [disabled]="disablebutton[i]" class="btn btn-block btn-info">Process</button></td>
+            <td><button (click)="goToLab(labReq.id)"  class="btn btn-block btn-info">Process</button></td>
 <!--            <td *ngIf="isId"><button [disabled]="status" (click)="goToLab(i,labReq.id)" class="btn btn-block btn-info">Processing...</button></td>-->
           </tr>
           </tbody>

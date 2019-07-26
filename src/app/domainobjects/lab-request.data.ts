@@ -7,6 +7,7 @@ export class LabRequestData {
     public testName: string,
     public dateOfRequest: string,
     public doctorName: string,
+    public status: boolean,
     public patient: PatientData[]
   ) {}
 
