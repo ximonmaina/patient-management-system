@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TreatmentData} from '../../domainobjects/treatment.data';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserDataService} from '../../services/data/user-data.service';
@@ -146,16 +146,6 @@ export class TreatmentComponent implements OnInit {
     this.staffName = this.doctorName;
     this.patient = this.patientIdTwo;
 
-    // pharmacy data
-    this.commitPharmacyData = new PharmacyData(
-      0,
-      this.drugPrescription,
-      this.dateOfPrescription,
-      this.nameOfDoctor,
-      this.staffName,
-      this.patient
-    );
-
     // drug prescription data
     this.commitDrugPrescriptions = new DrugPrescriptionSave(
       0,
@@ -163,16 +153,6 @@ export class TreatmentComponent implements OnInit {
       this.doctorName,
       this.dateOfPrescription,
       this.patient
-    );
-    // console.log(this.commitPharmacyData);
-    // console.log(this.commitDrugPrescriptions);
-    this.savePharmacyData.addPharmacyData(this.commitPharmacyData).subscribe(
-      data => {
-        console.log('pharmacy data save successfully');
-      },
-      error => {
-        console.log(error);
-      }
     );
     this.saveDrugPrescription.addDrugPrescriptionData(this.commitDrugPrescriptions).subscribe(
       data => {
@@ -302,10 +282,13 @@ export class TreatmentComponent implements OnInit {
 
   saveTreatment({value, valid}: {value: TreatmentData, valid: boolean}) {
     // console.log(value);
+
     this.savePatientTreatmentData = value;
     this.savePatientTreatmentData.staffName = this.doctorName;
+    this.savePatientTreatmentData.drugPrescription = this.finalDrugPrescriptionValue;
     this.savePatientTreatmentData.dateOfDiagnosis = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
     console.log(this.savePatientTreatmentData);
+    console.log(this.finalDrugPrescriptionValue);
     this.saveTreatmentData.addPatientTreatmentData(this.savePatientTreatmentData).subscribe(
       response => {
         this.deleteTreatmentPatients(this.patientTreatmentId);

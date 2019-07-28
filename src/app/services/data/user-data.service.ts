@@ -14,7 +14,7 @@ import {LabResultData} from '../../domainobjects/lab-result.data';
 import {Laboratory} from '../../domainobjects/laboratory';
 import {DrugPrescriptionData} from '../../domainobjects/drug-prescription.data';
 import {DrugInventory} from '../../domainobjects/drug-inventory';
-import {PharmacyData} from '../../domainobjects/pharmacy-data';
+
 import {DrugPrescriptionSave} from '../../domainobjects/drug-prescription';
 import {DrugInventoryData} from '../../domainobjects/drug-inventory-data';
 import {UpdatePatientData} from '../../domainobjects/update-patient-data';
@@ -77,12 +77,6 @@ export class UserDataService {
     return this.http.post(`${API_URL}/drugprescription/addDrugPresc`, drugPrescriptionSave, {headers});
   }
 
-  addPharmacyData(pharmacyData: PharmacyData) {
-    const headers = new HttpHeaders({
-      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
-    });
-    return this.http.post(`${API_URL}/pharmacy/addPharmData`, pharmacyData, {headers});
-  }
 
   deleteDrugFromInventory(id) {
     const headers = new HttpHeaders({

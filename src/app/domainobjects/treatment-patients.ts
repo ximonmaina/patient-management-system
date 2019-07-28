@@ -5,7 +5,7 @@ export class TreatmentPatients {
     public id: number,
     public status: boolean,
     public testResult: boolean,
-    public nameOfDoctor,
+    public nameOfDoctor: string,
     public patient: PatientData[]
   ) {}
 }

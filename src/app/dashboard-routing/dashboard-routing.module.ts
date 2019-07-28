@@ -20,6 +20,7 @@ import {UpdateDrugComponent} from '../pharmacy/update-drug/update-drug.component
 import {UpdatePatientComponent} from '../admin-dashboard/update-patient/update-patient.component';
 import {TreatmentPatientsComponent} from '../admin-dashboard/treatment-patients/treatment-patients.component';
 import {PatientsLabResultsComponent} from '../admin-dashboard/patients-lab-results/patients-lab-results.component';
+import {MedicalHistoryComponent} from '../admin-dashboard/medical-history/medical-history.component';
 
 const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
@@ -31,6 +32,7 @@ const routes: Routes = [
     {path: 'update-patient/:id', component: UpdatePatientComponent, canActivate: [RouteGuardService]},
     {path: 'treatment-patients', component: TreatmentPatientsComponent, canActivate: [RouteGuardService] },
     {path: 'patient-lab-results', component: PatientsLabResultsComponent, canActivate: [RouteGuardService]},
+    {path: 'medical-history', component: MedicalHistoryComponent, canActivate: [RouteGuardService]},
     {path: 'main-treatment', component: MainTreatmentComponent, canActivate: [RouteGuardService],
       children: [
         {path: 'treatment', component: TreatmentComponent, canActivate: [RouteGuardService]},

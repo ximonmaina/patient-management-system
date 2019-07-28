@@ -11,10 +11,11 @@ import { AddPatientTriageComponent } from './add-patient-triage/add-patient-tria
 import { UpdatePatientComponent } from './update-patient/update-patient.component';
 import { TreatmentPatientsComponent } from './treatment-patients/treatment-patients.component';
 import { PatientsLabResultsComponent } from './patients-lab-results/patients-lab-results.component';
+import { MedicalHistoryComponent } from './medical-history/medical-history.component';
 
 
 @NgModule({
-  declarations: [MainDashboardComponent, WelcomeComponent, PatientListComponent, AddPatientComponent, AddPatientTriageComponent, UpdatePatientComponent, TreatmentPatientsComponent, PatientsLabResultsComponent],
+  declarations: [MainDashboardComponent, WelcomeComponent, PatientListComponent, AddPatientComponent, AddPatientTriageComponent, UpdatePatientComponent, TreatmentPatientsComponent, PatientsLabResultsComponent, MedicalHistoryComponent],
   imports: [
     CommonModule,
     RouterModule,
