@@ -4,4 +4,196 @@
       <h3 style="color: #7F7F7F">Medical History</h3>
     </div>
   </div>
+
+  <form (ngSubmit)="getPatientHistory(patientHistory)" [formGroup]="patientHistory" class="margin-bottom">
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-md-2">
+        <span class="text-color">Select patient to view medical history</span>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <!--             <label  class="text-color">Patient*</label>-->
+          <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select patient" virtualScroll="true"
+                     formControlName="patient" >
+            <ng-option *ngFor="let patient of patients" [value]="patient.id"  >
+              {{patient.patientMiddleName}} {{patient.patientFirstName}}  {{patient.patientLastName}}
+            </ng-option>
+          </ng-select>
+        </div>
+        <div class="error alert-warning" *ngIf="patientHistory.get('patient').hasError('required') && patientHistory.get('patient').touched">
+          Please select patient name!
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button  type="submit" [disabled]="patientHistory.invalid" class="btn btn-color text-white btn-hover">Search Patient Test Results</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </form>
+  <hr>
+<!--  display patient history-->
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="container-fluid" *ngFor="let patientHistory of patientHistoryData" style="background-color: #F8F9FA; margin-bottom: 10px; border-radius: 3px;">
+        <div class="row" style="background-color: #E9ECEF; padding: 10px; border-radius: 3px;">
+          <div class="col-md-2">
+           <div class="row">
+             <div class="col-md-12"></div>
+           </div>
+            <span><h5 style="font-family: 'Open Sans Condensed';">Date</h5></span>
+          </div>
+          <div class="col-md-5">
+            <span><h5 style="font-family: 'Open Sans Condensed'">Metrics & Notes</h5></span>
+          </div>
+          <div class="col-md-5">
+            <span><h5 style="font-family: 'Open Sans Condensed'">Lab & Prescription</h5></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2" style="margin-top: 10px;">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div>
+                    <span><h6 style="font-family: 'Open Sans'; margin-top: 170px;">{{patientHistory.triageDate| date: 'mediumDate'}}</h6></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5" style="margin-top: 10px;">
+            <div class="row">
+              <div class="col-md-12">
+                <span><h6 style="font-family: 'Open Sans Condensed'">Metrics for {{patientHistory.patientFirstName}} {{patientHistory.patientLastName}} {{patientHistory.patientMiddleName}}</h6></span>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-3">
+                    <span><h5 style="font-family: 'Andale Mono'">Weight</h5></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span><h5 style="font-family: 'Andale Mono'">Height</h5></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span><h5 style="font-family: 'Andale Mono'">Temp</h5></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span><h5 style="font-family: 'Andale Mono'">B.P</h5></span>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-3">
+                    <span><h6 style="font-family: 'Open Sans'">{{patientHistory.patientWeight}}</h6></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span><h6 style="font-family: 'Open Sans'">{{patientHistory.patientHeight}}</h6></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span><h6 style="font-family: 'Open Sans'">{{patientHistory.patientTemperature}}</h6></span>
+                  </div>
+                  <div class="col-md-3">
+                    <span><h6 style="font-family: 'Open Sans'">{{patientHistory.patientBloodPressure}}</h6></span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <hr>
+<!--            treatment-->
+            <div class="row">
+              <div class="col-md-12">
+                <span><h6 style="font-family: 'Open Sans Condensed'">Diagnosis for {{patientHistory.patientFirstName}} {{patientHistory.patientLastName}} {{patientHistory.patientMiddleName}}</h6></span>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-12">
+                <span><h5 style="font-family: 'Andale Mono'">Suffering from:</h5></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <span [innerHTML]="patientHistory.disease"><h6 style="font-family: 'Open Sans'">{{patientHistory.caseNotes}}</h6></span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <span><h5 style="font-family: 'Andale Mono'">Case Notes:</h5></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <span [innerHTML]="patientHistory.caseNotes"><h6 style="font-family: 'Open Sans'">{{patientHistory.caseNotes}}</h6></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5" style="margin-top: 10px;">
+            <div class="row">
+              <div class="col-md-12">
+                <span><h6 style="font-family: 'Open Sans Condensed'">Lab Results for {{patientHistory.patientFirstName}} {{patientHistory.patientLastName}} {{patientHistory.patientMiddleName}}</h6></span>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-12">
+                <span><h5 style="font-family: 'Andale Mono'">Lab Tech Name:</h5></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <span><h6 style="font-family: 'Open Sans'">{{patientHistory.labTechName}}</h6></span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+              <span><h5 style="font-family: 'Andale Mono'">Test Name:</h5></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <span><h6 style="font-family: 'Open Sans'">{{patientHistory.testName}}</h6></span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <span><h5 style="font-family: 'Andale Mono'">Test Result:</h5></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <span [innerHTML]="patientHistory.testResult"><h6 style="font-family: 'Open Sans'">{{patientHistory.testResult}}</h6></span>
+              </div>
+            </div>
+
+            <hr>
+            <!--        prescription-->
+            <div class="row">
+              <div class="col-md-12">
+                <span><h6 style="font-family: 'Open Sans Condensed'">Prescription for {{patientHistory.patientFirstName}} {{patientHistory.patientLastName}} {{patientHistory.patientMiddleName}}</h6></span>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-12">
+                <span><h5 style="font-family: 'Andale Mono'">Prescription:</h5></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <span [innerHTML]="patientHistory.drugPrescription"><h6 style="font-family: 'Open Sans'">{{patientHistory.testResult}}</h6></span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
 </div>

@@ -12,6 +12,7 @@ import { UpdatePatientComponent } from './update-patient/update-patient.componen
 import { TreatmentPatientsComponent } from './treatment-patients/treatment-patients.component';
 import { PatientsLabResultsComponent } from './patients-lab-results/patients-lab-results.component';
 import { MedicalHistoryComponent } from './medical-history/medical-history.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MedicalHistoryComponent } from './medical-history/medical-history.compo
     CommonModule,
     RouterModule,
     DashboardRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ]
 })
 export class AdminDashboardModule { }

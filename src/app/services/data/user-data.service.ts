@@ -22,6 +22,7 @@ import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data
 import {TreatmentPatients} from '../../domainobjects/treatment-patients';
 import {TreatmentData} from '../../domainobjects/treatment.data';
 import {LabRequest} from '../../domainobjects/lab-request';
+import {PatientHistory} from '../../domainobjects/patient-history';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,14 @@ export class UserDataService {
 
   constructor(private http: HttpClient,
              private jwtAuthenticationService: JwtAuthenticationService) { }
+
+  getPatientHistory(id) {
+    const headers = new HttpHeaders({
+      Authorization: this.jwtAuthenticationService.getAuthenticatedToken()
+    });
+    // console.log(`${this.jwtAuthenticationService.getAuthenticatedToken()}`);
+    return this.http.get<PatientHistory[]>(`${API_URL}/patienthistory/getPatientHistory/${id}`, {headers});
+  }
 
   addTreatmentPatientsData(treatmentPatientsData: TreatmentPatientsData) {
     const headers = new HttpHeaders({
