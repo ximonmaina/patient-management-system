@@ -84,4 +84,7 @@ export class PatientsLabResultsComponent implements OnInit {
     );
   }
 
+  refresh() {
+    this.getAllTreatmentPatients();
+  }
 }

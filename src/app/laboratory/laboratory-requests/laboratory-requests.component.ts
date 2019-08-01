@@ -76,4 +76,7 @@ export class LaboratoryRequestsComponent implements OnInit {
     );
   }
 
+  refresh() {
+    this.getLabRequests();
+  }
 }

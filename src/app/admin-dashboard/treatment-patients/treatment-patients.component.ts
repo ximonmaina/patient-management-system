@@ -90,4 +90,8 @@ export class TreatmentPatientsComponent implements OnInit {
        }
      );
   }
+
+  refresh() {
+    this.getAllTreatmentPatients();
+  }
 }

@@ -41,4 +41,7 @@ export class DrugPrescriptionListComponent implements OnInit {
     this.getAllDrugPrescriptions();
   }
 
+  refresh() {
+    this.getAllDrugPrescriptions();
+  }
 }
