@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
 import {MustMatch} from '../validators/custom.validators';
+import {Javamail} from '../domainobjects/javamail';
 
 @Component({
   selector: 'app-registration',
@@ -15,8 +16,10 @@ export class RegistrationComponent implements OnInit {
 
   userData: UserData;
   user: FormGroup;
+  receivermail: Javamail;
 
   constructor(private saveUserService: UserDataService,
+              private sendUserMail: UserDataService,
               private router: Router,
               private formBuidler: FormBuilder) { }
 
@@ -49,11 +52,28 @@ export class RegistrationComponent implements OnInit {
     delete value['confirmPassword'];
     this.userData = value;
     // console.log(this.userData);
+    this.receivermail = new Javamail(
+      this.userData.userName, this.userData.password, this.userData.emailAddress
+    );
+
+    // console.log(this.receivermail);
 
     this.saveUserService.addUser(this.userData).subscribe(
       response => {
         console.log(response);
         this.router.navigate(['/registered-users']);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.getMailAndSend(this.receivermail);
+  }
+
+  getMailAndSend(mail: Javamail) {
+    return this.sendUserMail.userMail(mail).subscribe(
+      data => {
+        console.log(data);
       },
       error => {
         console.log(error);
