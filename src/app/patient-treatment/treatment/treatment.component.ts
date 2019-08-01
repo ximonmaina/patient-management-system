@@ -15,6 +15,7 @@ import {PharmacyTemp} from '../../domainobjects/pharmacy-temp';
 import {PatientTreatmentIdService} from '../../services/patient-treatment-id.service';
 import {TreatmentPatients} from '../../domainobjects/treatment-patients';
 import {TreatmentPatientsData} from '../../domainobjects/treatment-patients-data';
+
 interface Event {
   name: string;
   value: any;
@@ -71,6 +72,12 @@ export class TreatmentComponent implements OnInit {
   testResult: boolean;
   nameOfDoctorPatientTreatment: string;
 
+  // getting labId from patient
+  labDate: string;
+  todaysDate = Date.now();
+  laboratoryId: number;
+
+
   constructor(private saveTreatmentData: UserDataService,
               private patientTreatmentIdUpdate: PatientTreatmentIdService,
               private treatmentPatientId: PatientTreatmentIdService,
@@ -96,7 +103,7 @@ export class TreatmentComponent implements OnInit {
       data => {
         this.patientTreatmentId = data;
         // console.log('Patient id');
-        // console.log(this.patientTreatmentId);
+        console.log(this.patientTreatmentId);
       }
     );
 
@@ -106,7 +113,8 @@ export class TreatmentComponent implements OnInit {
       caseNotes: ['', [Validators.required, Validators.minLength(5)]],
       // staffName: [{value: this.doctorName, disabled: true}],
       // dateOfDiagnosis: ['', [Validators.required]],
-      patient: ['', [Validators.required]]
+      patient: ['', [Validators.required]],
+      testDone: ['', [Validators.required]]
     });
 
     this.drugPrescriptionOne = this.formBuilder.group( {
@@ -123,12 +131,30 @@ export class TreatmentComponent implements OnInit {
     this.getPatientTreatments.getOneTreatmentPatient(this.patientTreatmentId).subscribe(
       data => {
         this.patientTreatments = data;
+        this.labDate = this.datePipe.transform(this.todaysDate, 'yyyy-MM-dd');
+        // console.log(this.labDate);
         this.getPatientIdFromTreatment = this.patientTreatments.patient;
         for (const patient of this.getPatientIdFromTreatment) {
           this.idForPatientInQueue = patient.id;
+          // this.laboratoryData = patient.labData;
         }
         this.treatment.patchValue({patient: this.idForPatientInQueue});
         // console.log(this.idForPatientInQueue);
+        this.getLabData(this.idForPatientInQueue);
+      }
+    );
+  }
+
+  getLabData(patientId: number) {
+    this.getPatients.getPatientById(patientId).subscribe(
+      data => {
+        for (const lab of data.labData) {
+          if (this.labDate === this.datePipe.transform(lab.testResultDate, 'yyyy-MM-dd')) {
+            this.laboratoryId = lab.id;
+            console.log(this.laboratoryId);
+          }
+
+        }
       }
     );
   }
@@ -281,23 +307,43 @@ export class TreatmentComponent implements OnInit {
   }
 
   saveTreatment({value, valid}: {value: TreatmentData, valid: boolean}) {
-    // console.log(value);
 
-    this.savePatientTreatmentData = value;
-    this.savePatientTreatmentData.staffName = this.doctorName;
-    this.savePatientTreatmentData.drugPrescription = this.finalDrugPrescriptionValue;
-    this.savePatientTreatmentData.dateOfDiagnosis = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
-    console.log(this.savePatientTreatmentData);
-    console.log(this.finalDrugPrescriptionValue);
-    this.saveTreatmentData.addPatientTreatmentData(this.savePatientTreatmentData).subscribe(
-      response => {
-        this.deleteTreatmentPatients(this.patientTreatmentId);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    const isTest = value['testDone'];
+    console.log(isTest);
+    delete value['testDone'];
+    if (isTest === 'yes') {
+      this.savePatientTreatmentData = value;
+      this.savePatientTreatmentData.laboratoryId = this.laboratoryId;
+      this.savePatientTreatmentData.staffName = this.doctorName;
+      this.savePatientTreatmentData.drugPrescription = this.finalDrugPrescriptionValue;
+      this.savePatientTreatmentData.dateOfDiagnosis = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
+      console.log(this.savePatientTreatmentData);
 
+      this.saveTreatmentData.addPatientTreatmentData(this.savePatientTreatmentData).subscribe(
+        response => {
+          this.deleteTreatmentPatients(this.patientTreatmentId);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else if (isTest === 'no') {
+      this.savePatientTreatmentData = value;
+      this.savePatientTreatmentData.laboratoryId = -1;
+      this.savePatientTreatmentData.staffName = this.doctorName;
+      this.savePatientTreatmentData.drugPrescription = this.finalDrugPrescriptionValue;
+      this.savePatientTreatmentData.dateOfDiagnosis = this.datePipe.transform(this.diagnosisDate, 'yyyy-MM-dd');
+      console.log(this.savePatientTreatmentData);
+
+      this.saveTreatmentData.addPatientTreatmentData(this.savePatientTreatmentData).subscribe(
+        response => {
+          this.deleteTreatmentPatients(this.patientTreatmentId);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   deleteTreatmentPatients(treatmentPatients: number) {
@@ -310,7 +356,7 @@ export class TreatmentComponent implements OnInit {
 
 
   goToPatientList() {
-    this.getPatientTreatments.getOneTreatmentPatient(this.idForPatientInQueue).subscribe(
+    this.getPatientTreatments.getOneTreatmentPatient(this.patientTreatmentId).subscribe(
       data => {
         this.getTreatmentPatient = data;
         for (const patient of this.getTreatmentPatient.patient) {

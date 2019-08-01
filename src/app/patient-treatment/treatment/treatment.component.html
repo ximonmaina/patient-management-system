@@ -43,6 +43,8 @@
   </div>
     </div>
 
+
+
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
@@ -60,27 +62,33 @@
       </div>
     </div>
 
-<!--    <div class="row">-->
-<!--      <div class="col-md-12">-->
-<!--        <div class="form-group">-->
-<!--          <label for="drugPrescriptionOne" class="text-color">Drugs Prescription*</label>-->
-<!--          <input type="text" class="form-control" formControlName="drugPrescriptionOne" id="drugPrescriptionOne"-->
-<!--                 placeholder="Enter patient drug prescription">-->
-<!--        </div>-->
-<!--        <div class="error alert-warning" *ngIf="treatment.get('drugPrescriptionOne').hasError('required') && treatment.get('drugPrescriptionOne').touched">-->
-<!--          Patient drug drescription details should be recorded!-->
-<!--        </div>-->
-<!--        <div class="error alert-warning" *ngIf="treatment.get('drugPrescriptionOne').hasError('minlength') && treatment.get('drugPrescriptionOne').touched">-->
-<!--          Minimum of 5 characters-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div>
+            <label  class="text-color">Were lab test(s) done on patient*</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="yes" type="radio" class="custom-control-input" value="yes" name="testDone" formControlName="testDone">
+            <label class="custom-control-label" for="yes">Yes</label>
+          </div>
+
+          <div class="custom-control custom-radio">
+            <input id="no" type="radio" class="custom-control-input" value="no" name="testDone" formControlName="testDone">
+            <label class="custom-control-label" for="no">No</label>
+          </div>
+        </div>
+        <div class="error alert-warning" *ngIf="treatment.get('testDone').hasError('required') && treatment.get('testDone').touched">
+          Please select either option!!!
+        </div>
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label for="staffName" class="text-color">Doctor</label>
-          <input type="text" class="form-control"  id="staffName" placeholder="{{doctorName}}">
+          <input type="text" class="form-control" [disabled]="true" id="staffName" placeholder="{{doctorName}}">
         </div>
       </div>
       <div class="col-md-6">
@@ -106,7 +114,7 @@
         <button  *ngIf="modalState || treatment.valid" type="submit" [disabled]="treatment.invalid" class="btn btn-lg btn-block btn-color text-white btn-hover">Submit</button>
       </div>
       <div class="col-md-4">
-        <button  (click)="goToPatientList()" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
+        <button type="button" (click)="goToPatientList()" class="btn btn-lg btn-block btn-color text-white btn-hover">Cancel</button>
       </div>
       <div class="col-md-2"></div>
     </div>

@@ -6,6 +6,7 @@ export class TreatmentData {
     public staffName: string,
     public dateOfDiagnosis: string,
     public drugPrescription: string,
+    public laboratoryId: number,
     public patient: number
   ) {}
 }
