@@ -13,10 +13,11 @@ import { TreatmentPatientsComponent } from './treatment-patients/treatment-patie
 import { PatientsLabResultsComponent } from './patients-lab-results/patients-lab-results.component';
 import { MedicalHistoryComponent } from './medical-history/medical-history.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { AuthorizationErrorComponent } from './authorization-error/authorization-error.component';
 
 
 @NgModule({
-  declarations: [MainDashboardComponent, WelcomeComponent, PatientListComponent, AddPatientComponent, AddPatientTriageComponent, UpdatePatientComponent, TreatmentPatientsComponent, PatientsLabResultsComponent, MedicalHistoryComponent],
+  declarations: [MainDashboardComponent, WelcomeComponent, PatientListComponent, AddPatientComponent, AddPatientTriageComponent, UpdatePatientComponent, TreatmentPatientsComponent, PatientsLabResultsComponent, MedicalHistoryComponent, AuthorizationErrorComponent],
   imports: [
     CommonModule,
     RouterModule,
