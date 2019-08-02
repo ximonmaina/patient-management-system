@@ -31,28 +31,28 @@ const routes: Routes = [
   {path: 'main-dashboard', component: MainDashboardComponent,
   children: [
     {path: 'welcome', component: WelcomeComponent, canActivate: [RouteGuardService]},
-    {path: 'patient-list', component: PatientListComponent, canActivate: [NurseGuard, RouteGuardService]},
-    {path: 'add-patient', component: AddPatientComponent, canActivate: [NurseGuard, RouteGuardService]},
-    {path: 'add-triage/:id', component: AddPatientTriageComponent, canActivate: [NurseGuard, RouteGuardService]},
-    {path: 'update-patient/:id', component: UpdatePatientComponent, canActivate: [NurseGuard, RouteGuardService]},
-    {path: 'treatment-patients', component: TreatmentPatientsComponent, canActivate: [DoctorGuard, RouteGuardService] },
+    {path: 'patient-list', component: PatientListComponent, canActivate: [ RouteGuardService]},
+    {path: 'add-patient', component: AddPatientComponent, canActivate: [ RouteGuardService]},
+    {path: 'add-triage/:id', component: AddPatientTriageComponent, canActivate: [ RouteGuardService]},
+    {path: 'update-patient/:id', component: UpdatePatientComponent, canActivate: [ RouteGuardService]},
+    {path: 'treatment-patients', component: TreatmentPatientsComponent, canActivate: [RouteGuardService] },
     {path: 'patient-lab-results', component: PatientsLabResultsComponent, canActivate: [RouteGuardService]},
     {path: 'medical-history', component: MedicalHistoryComponent, canActivate: [RouteGuardService]},
     {path: 'authorization-error', component: AuthorizationErrorComponent},
     {path: 'main-treatment', component: MainTreatmentComponent, canActivate: [RouteGuardService],
       children: [
-        {path: 'treatment', component: TreatmentComponent, canActivate: [DoctorGuard, RouteGuardService]},
-        {path: 'lab-request', component: LabTestRequestComponent, canActivate: [DoctorGuard, RouteGuardService]},
-        {path: 'lab-req-results', component: LabTestResultComponent, canActivate: [DoctorGuard, RouteGuardService]}
+        {path: 'treatment', component: TreatmentComponent, canActivate: [RouteGuardService]},
+        {path: 'lab-request', component: LabTestRequestComponent, canActivate: [RouteGuardService]},
+        {path: 'lab-req-results', component: LabTestResultComponent, canActivate: [RouteGuardService]}
       ]
     },
-    {path: 'laboratory-requests', component: LaboratoryRequestsComponent, canActivate: [LabtechGuard, RouteGuardService]},
-    {path: 'lab-results/:id', component: LaboratoryResultsComponent, canActivate: [LabtechGuard, RouteGuardService]},
-    {path: 'drug-list', component: DrugPrescriptionListComponent, canActivate: [PharmacistGuard, RouteGuardService]},
-    {path: 'pharmacy/:id', component: PharmacyComponent, canActivate: [PharmacistGuard, RouteGuardService]},
-    {path: 'drug-inv-list', component: DrugInventoryListComponent, canActivate: [PharmacistGuard, RouteGuardService]},
-    {path: 'add-drug', component: AddNewDrugToInventoryComponent, canActivate: [PharmacistGuard, RouteGuardService]},
-    {path: 'update-drug/:id' , component: UpdateDrugComponent, canActivate: [PharmacistGuard, RouteGuardService]}
+    {path: 'laboratory-requests', component: LaboratoryRequestsComponent, canActivate: [ RouteGuardService]},
+    {path: 'lab-results/:id', component: LaboratoryResultsComponent, canActivate: [ RouteGuardService]},
+    {path: 'drug-list', component: DrugPrescriptionListComponent, canActivate: [ RouteGuardService]},
+    {path: 'pharmacy/:id', component: PharmacyComponent, canActivate: [ RouteGuardService]},
+    {path: 'drug-inv-list', component: DrugInventoryListComponent, canActivate: [ RouteGuardService]},
+    {path: 'add-drug', component: AddNewDrugToInventoryComponent, canActivate: [ RouteGuardService]},
+    {path: 'update-drug/:id' , component: UpdateDrugComponent, canActivate: [ RouteGuardService]}
   ]}
 ];
 
