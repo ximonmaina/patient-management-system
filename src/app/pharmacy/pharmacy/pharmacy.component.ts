@@ -53,6 +53,7 @@ export class PharmacyComponent implements OnInit {
   private manufacturer: string;
   private notes: string;
   private inventoryNumber: number;
+  private isUpdateComplete = true;
 
 
   constructor(private savePharmacyData: UserDataService,
@@ -86,7 +87,9 @@ export class PharmacyComponent implements OnInit {
       inventory: ['', Validators.required],
       manufacturer: [{value: '', disabled: true}]
     });
+
   }
+
 
   getDrugInv({value, valid}: {value: DrugInventory, valid: boolean}) {
     if (value.id !== null) {
@@ -201,6 +204,7 @@ export class PharmacyComponent implements OnInit {
   }
 
   tempSaveDrugInventoryResults({value, valid}: {value: DrugInventory, valid: boolean}) {
+    this.isUpdateComplete = false;
     console.log(value);
     this.id = this.updateDrugInventory.id;
       this.drugName = this.updateDrugInventory.drugName;
