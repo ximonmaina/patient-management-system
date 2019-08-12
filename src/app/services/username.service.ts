@@ -9,10 +9,10 @@ export class UsernameService {
    username: string;
   constructor() { }
 
-  setUserName(username: string) {
-    this.username = username;
-    localStorage.setItem(USER_NAME, this.username);
-  }
+  // setUserName(username: string) {
+  //   this.username = username;
+  //   localStorage.setItem(USER_NAME, this.username);
+  // }
 
   getUsername(): string {
     return sessionStorage.getItem('authenticatedUser');
