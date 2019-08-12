@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
         data => {
           console.log(data);
           this.newUsername();
-          this.getUsername.setUserName(this.username);
+          // this.getUsername.setUserName(this.username);
           this.getUserRole(this.username);
           this.invalidLogin = false;
         },

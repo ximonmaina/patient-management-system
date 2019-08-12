@@ -15,6 +15,6 @@ export class UsernameService {
   }
 
   getUsername(): string {
-    return localStorage.getItem(USER_NAME);
+    return sessionStorage.getItem('authenticatedUser');
   }
 }

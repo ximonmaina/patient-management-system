@@ -41,7 +41,7 @@ export class JwtAuthenticationService {
 
   logout() {
     sessionStorage.removeItem('authenticatedUser');
-    localStorage.removeItem(USER_NAME);
-    console.log(localStorage.getItem(USER_NAME));
+    sessionStorage.removeItem('token');
+
   }
 }
