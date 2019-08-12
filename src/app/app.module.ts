@@ -23,6 +23,7 @@ import {PatientTreatmentModule} from './patient-treatment/patient-treatment.modu
 import {LaboratoryModule} from './laboratory/laboratory.module';
 import {PharmacyModule} from './pharmacy/pharmacy.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,7 @@ import {PharmacyModule} from './pharmacy/pharmacy.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [DataService, RouteGuardService, DatePipe],
