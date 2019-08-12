@@ -53,7 +53,7 @@ export class PharmacyComponent implements OnInit {
   private manufacturer: string;
   private notes: string;
   private inventoryNumber: number;
-  private isUpdateComplete = true;
+  public isUpdateComplete = true;
 
 
   constructor(private savePharmacyData: UserDataService,
