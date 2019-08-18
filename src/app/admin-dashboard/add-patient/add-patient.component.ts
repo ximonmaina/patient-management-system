@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserDataService} from '../../services/data/user-data.service';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
+import { COUNTIES, COUNTRIES } from 'src/app/app.constants';
 // import {$} from 'protractor';
 
 @Component({
@@ -15,6 +16,8 @@ export class AddPatientComponent implements OnInit {
 
   patientData: PatientData;
   patient: FormGroup;
+  counties: string[] = COUNTIES;
+  countries: any[] = COUNTRIES;
 
   constructor(private savePatientData: UserDataService,
               private router: Router,
@@ -46,15 +49,15 @@ export class AddPatientComponent implements OnInit {
     this.patientData = value;
     console.log(this.patientData);
 
-    this.savePatientData.addPatient(this.patientData).subscribe(
-      response => {
-        console.log(response);
-        this.router.navigate(['/main-dashboard/patient-list']);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    // this.savePatientData.addPatient(this.patientData).subscribe(
+    //   response => {
+    //     console.log(response);
+    //     this.router.navigate(['/main-dashboard/patient-list']);
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
 }

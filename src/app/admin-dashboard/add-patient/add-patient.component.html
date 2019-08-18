@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -92,7 +92,13 @@
       </div>
       <div class="col-md-6">
         <label for="patientCountry" class="text-color">Country</label>
-        <input type="text" formControlName="patientCountry" id="patientCountry" class="form-control" placeholder="Enter country name">
+        <!-- <input type="text" formControlName="patientCountry" id="patientCountry" class="form-control" placeholder="Enter country name"> -->
+        <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select country" virtualScroll="true"
+        formControlName="patientCountry" >
+          <ng-option *ngFor="let country of countries" [value]="country.name"  >
+            {{country.name}} {{country.code}}
+          </ng-option>
+                </ng-select>
       </div>
     </div>
 
@@ -100,7 +106,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="patientCounty" class="text-color">County</label>
-          <input type="text" formControlName="patientCounty" id="patientCounty" class="form-control" placeholder="Enter county name">
+          <!-- <input type="text" formControlName="patientCounty" id="patientCounty" class="form-control" placeholder="Enter county name"> -->
+          <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select county" virtualScroll="true"
+          formControlName="patientCounty" >
+            <ng-option *ngFor="let county of counties" [value]="county"  >
+              {{county}}
+            </ng-option>
+                  </ng-select>
         </div>
       </div>
       <div class="col-md-6">
