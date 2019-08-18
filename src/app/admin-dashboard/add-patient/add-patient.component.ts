@@ -47,17 +47,18 @@ export class AddPatientComponent implements OnInit {
   savePatient({value, valid}: {value: PatientData, valid: boolean}) {
     value.patientDateOfBirth = this.datePipe.transform(value.patientDateOfBirth, 'yyyy-MM-dd');
     this.patientData = value;
+    delete this.patientData['patientClinicId'];
     console.log(this.patientData);
 
-    // this.savePatientData.addPatient(this.patientData).subscribe(
-    //   response => {
-    //     console.log(response);
-    //     this.router.navigate(['/main-dashboard/patient-list']);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    this.savePatientData.addPatient(this.patientData).subscribe(
+      response => {
+        console.log(response);
+        this.router.navigate(['/main-dashboard/patient-list']);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

@@ -15,6 +15,7 @@ export class PatientData {
   public patientPhoneNumber: number,
   public patientAddress: string,
   public patientEmailAddress: string,
+  public patientClinicId: string,
   public labData: LabResultTwoData[]
 ) {}
 }

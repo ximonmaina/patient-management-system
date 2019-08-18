@@ -67,6 +67,7 @@ export class UpdatePatientComponent implements OnInit {
     delete this.patientData['patientTreatment'];
     delete this.patientData['labData'];
     delete this.patientData['PharmacyData'];
+    delete this.patientData['patientClinicId'];
     this.savePatientData.updatePatientData(this.patientData).subscribe(
       response => {
         // console.log(response);

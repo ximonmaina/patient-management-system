@@ -16,7 +16,7 @@
           <ng-select dropdownPosition="auto" [selectOnTab]="true" placeholder="Select patient" virtualScroll="true"
                      formControlName="patient" >
             <ng-option *ngFor="let patient of patients" [value]="patient.id"  >
-              {{patient.patientMiddleName}} {{patient.patientFirstName}}  {{patient.patientLastName}}
+              {{patient.patientMiddleName}} {{patient.patientFirstName}}  {{patient.patientLastName}} {{patient.patientClinicId}}
             </ng-option>
           </ng-select>
         </div>

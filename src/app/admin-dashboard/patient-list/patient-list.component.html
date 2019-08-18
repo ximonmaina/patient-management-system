@@ -10,32 +10,30 @@
       <table id="dtMaterialDesignExample" class="table table-responsive table-margin table-striped" cellspacing="0" width="100%">
         <thead class="thead-light">
         <tr>
+          <th class="th-sm">Patient Id</th>
           <th class="th-sm">First Name</th>
           <th class="th-sm">Last Name</th>
           <th class="th-sm">Middle Name</th>
-          <th class="th-sm">Identity Number</th>
           <th class="th-sm">DoB</th>
           <th class="th-sm">Age</th>
           <th class="th-sm">Gender</th>
           <th class="th-sm">County</th>
-          <th class="th-sm">Tel. Number</th>
-          <th class="th-sm">Address</th>
+         <th class="th-sm">Tel. Number</th>
           <th class="th-sm"></th>
           <th class="th-sm"></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor=" let patient of patientList">
+            <td>{{patient.patientClinicId}}</td>
             <td>{{patient.patientFirstName}}</td>
             <td>{{patient.patientLastName}}</td>
              <td>{{patient.patientMiddleName}}</td>
-            <td>{{patient.patientIdentityNumber}}</td>
             <td>{{patient.patientDateOfBirth | date :'yyyy-MM-dd'}}</td>
             <td>{{patient.patientAge}}</td>
             <td>{{patient.patientGender}}</td>
             <td>{{patient.patientCounty}}</td>
             <td>{{patient.patientPhoneNumber}}</td>
-            <td>{{patient.patientAddress}}</td>
             <td><button  (click)="updatePatient(patient.id)" class="btn btn-success">Update</button></td>
             <td><button (click)="getPatientId(patient.id)" type="button" class="btn btn-success">Add Triage</button></td>
         </tr>
